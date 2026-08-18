@@ -1,0 +1,307 @@
+lass="navbtn" id="next">→</button>
+  </div>
+  <div id="pages"></div>
+  <div class="dots" id="dots"></div>
+  <div style="text-align:center;margin-top:26px">
+    <button class="cta ghost sm" data-go="4">구독 · 배송 화면 보기 &nbsp;→</button>
+  </div>
+</section>
+
+<!-- ============ 4. SUBSCRIBE ============ -->
+<section class="scene" id="s4">
+  <div class="sec-head">
+    <div class="kicker">S T E P &nbsp; 0 4</div>
+    <h2>매달, 다음 이야기가 도착합니다</h2>
+    <p>한 권으로 끝나지 않습니다. 12개월이면 한 사람의 생애사가 완성됩니다.</p>
+  </div>
+  <div class="sub-grid">
+    <div class="card">
+      <h4>구독 관리</h4>
+      <div style="display:flex;align-items:baseline;gap:8px;margin-bottom:6px">
+        <span class="price">19,900</span><span style="color:var(--ink-l);font-size:14px">원 / 월</span>
+        <span class="pill" style="margin-left:auto">베이직 플랜</span>
+      </div>
+      <div style="border-top:1px solid var(--cream-d);margin:16px 0 6px"></div>
+      <div class="plan"><span>월 1회 맞춤 인지북</span><b>포함</b></div>
+      <div class="plan"><span>6가지 인지훈련 구성</span><b>포함</b></div>
+      <div class="plan"><span>가족 앨범 · 추억 스토리 아카이브</span><b>포함</b></div>
+      <div class="plan"><span>Memory Film QR (영상 재생)</span><b>포함</b></div>
+      <div class="plan"><span>선물 포장 · 손편지 카드</span><b>포함</b></div>
+      <div style="display:flex;gap:10px;margin-top:20px;flex-wrap:wrap">
+        <button class="cta sm">플랜 변경</button>
+        <button class="cta ghost sm">이번 달 건너뛰기</button>
+      </div>
+    </div>
+    <div class="card">
+      <h4>배송 일정</h4>
+      <div class="ship"><span class="d"></span><div><b>1권 · 유년의 골목</b><br><span style="font-size:12px">2026.06.15 배송 완료</span></div></div>
+      <div class="ship"><span class="d"></span><div><b>2권 · 스무 살의 봄</b><br><span style="font-size:12px">2026.07.15 배송 완료</span></div></div>
+      <div class="ship next"><span class="d"></span><div><b id="ship-cur">3권</b><br><span style="font-size:12px;color:var(--accent);font-weight:700">2026.08.15 배송 준비 중</span></div></div>
+      <div class="ship" style="opacity:.5"><span class="d"></span><div><b id="ship-next">4권</b><br><span style="font-size:12px">2026.09.15 예정</span></div></div>
+      <div style="border-top:1px solid var(--cream-d);margin:16px 0"></div>
+      <div style="font-size:13px;color:var(--ink-l);line-height:1.9">
+        받는 분 <b style="color:var(--ink)" id="ship-to">—</b><br>
+        보내는 분 <b style="color:var(--ink)">딸 김미정</b><br>
+        인천광역시 중구 신포로 23-15
+      </div>
+    </div>
+  </div>
+
+  <div style="max-width:900px;margin:26px auto 0">
+    <div class="disc">
+      <b>발표용 데모 안내</b> — 본 화면은 기억윤슬의 제품 컨셉을 보여주기 위한 시연물입니다.
+      본 서비스는 의료기기가 아니며, 질병의 진단·치료·예방을 목적으로 하지 않습니다.
+      콘텐츠 구성은 회상 활동 및 인지자극 활동의 국제 임상 프로그램 구조(집단 인지자극치료·회상요법)를 참고하여 설계되었으나,
+      개별 효과를 보증하지 않습니다. 어르신의 사진·생애사는 가족의 동의 및 본인 동의 절차를 거쳐 수집합니다.
+    </div>
+    <div style="text-align:center;margin-top:26px">
+      <button class="cta ghost sm" data-go="1">다른 어르신으로 다시 만들어 보기</button>
+    </div>
+  </div>
+</section>
+
+</div>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <filter id="sketchF">
+    <feColorMatrix type="saturate" values="0"/>
+    <feConvolveMatrix order="3" kernelMatrix="-1 -1 -1 -1 8 -1 -1 -1 -1" divisor="1" preserveAlpha="true"/>
+    <feComponentTransfer>
+      <feFuncR type="table" tableValues="1 0"/><feFuncG type="table" tableValues="1 0"/><feFuncB type="table" tableValues="1 0"/>
+    </feComponentTransfer>
+    <feComponentTransfer>
+      <feFuncR type="gamma" amplitude="1" exponent="2.6" offset="0"/><feFuncG type="gamma" amplitude="1" exponent="2.6" offset="0"/><feFuncB type="gamma" amplitude="1" exponent="2.6" offset="0"/>
+    </feComponentTransfer>
+  </filter>
+</svg>
+<script>
+/* =========================================================
+   기억윤슬 — 샘플 인지북 데모
+   ========================================================= */
+const $  = (s,r=document)=>r.querySelector(s);
+const $$ = (s,r=document)=>[...r.querySelectorAll(s)];
+
+/* ---------- 지역 데이터 ---------- */
+const CITY = {
+  '인천':{sea:'월미도',market:'신포시장',places:['월미도','신포시장','차이나타운','자유공원','소래포구'],land:'월미도 등대'},
+  '서울':{sea:'한강',market:'남대문시장',places:['남산타워','명동','청계천','남대문시장','한강'],land:'남산 서울타워'},
+  '부산':{sea:'해운대',market:'자갈치시장',places:['해운대','자갈치시장','감천문화마을','태종대','광안리'],land:'영도 등대'},
+  '전주':{sea:'덕진공원',market:'남부시장',places:['한옥마을','남부시장','오목대','전동성당','덕진공원'],land:'전주 한옥마을'},
+  '제주':{sea:'협재해변',market:'동문시장',places:['성산일출봉','동문시장','용두암','협재해변','한라산'],land:'제주 등대'},
+  '강릉':{sea:'경포대',market:'중앙시장',places:['경포대','정동진','중앙시장','안목해변','오죽헌'],land:'정동진 바다'},
+  '공주':{sea:'금강',market:'산성시장',places:['공산성','무령왕릉','산성시장','금강','갑사'],land:'공산성'}
+};
+const PROVERBS = [
+  {t:'가는 말이 고와야 오는 ___이 곱다', a:'말'},
+  {t:'티끌 모아 ___', a:'태산'},
+  {t:'___도 나무에서 떨어진다', a:'원숭이'},
+  {t:'백지장도 맞들면 ___', a:'낫다'}
+];
+const CHO = s => [...s].map(c=>{
+  const code=c.charCodeAt(0)-0xAC00;
+  const L=['ㄱ','ㄲ','ㄴ','ㄷ','ㄸ','ㄹ','ㅁ','ㅂ','ㅃ','ㅅ','ㅆ','ㅇ','ㅈ','ㅉ','ㅊ','ㅋ','ㅌ','ㅍ','ㅎ'];
+  return (code>=0&&code<11172)? L[Math.floor(code/588)] : c;
+}).join('');
+
+/* ---------- 상태 ---------- */
+const S = {name:'김영자',year:1942,city:'인천',level:2,pet:'보리',grand:'지수',
+           likes:['산책','트로트','손녀','바다'],msg:'',photos:[]};
+
+/* ---------- 사진 업로드 ---------- */
+const MAXP = 3;
+function addPhotos(files){
+  [...files].filter(f=>f.type.startsWith('image/')).slice(0, MAXP - S.photos.length).forEach(f=>{
+    const r = new FileReader();
+    r.onload = ()=>{ S.photos.push(r.result); renderPreviews(); };
+    r.readAsDataURL(f);
+  });
+}
+function renderPreviews(){
+  const box = $('#photo-previews');
+  box.innerHTML = S.photos.map((p,i)=>`
+    <div style="position:relative">
+      <img src="${p}" style="width:88px;height:88px;object-fit:cover;border-radius:10px;border:1.5px solid var(--line);display:block">
+      <button data-del="${i}" title="삭제" style="position:absolute;top:-7px;right:-7px;width:22px;height:22px;border-radius:50%;background:#e05b3a;color:#fff;font-size:12px;line-height:1;box-shadow:0 1px 4px rgba(0,0,0,.25)">✕</button>
+    </div>`).join('');
+  $$('#photo-previews [data-del]').forEach(b=>b.addEventListener('click',e=>{
+    e.stopPropagation(); S.photos.splice(+b.dataset.del,1); renderPreviews();
+  }));
+  const d = $('#drop');
+  d.innerHTML = S.photos.length >= MAXP
+    ? '✅ &nbsp;사진 3장이 준비되었습니다'
+    : `편ф &nbsp;여기를 눌러 가족 사진을 올려 주세요 &nbsp;<span style="color:var(--green);font-weight:700">(${S.photos.length}/${MAXP}장)</span>`;
+}
+const dropEl = $('#drop'), fileEl = $('#f-photos');
+dropEl.addEventListener('click', ()=>fileEl.click());
+fileEl.addEventListener('change', ()=>{ addPhotos(fileEl.files); fileEl.value=''; });
+dropEl.addEventListener('dragover', e=>{ e.preventDefault(); dropEl.style.borderColor='var(--green)'; });
+dropEl.addEventListener('dragleave', ()=>dropEl.style.borderColor='');
+dropEl.addEventListener('drop', e=>{ e.preventDefault(); dropEl.style.borderColor=''; addPhotos(e.dataTransfer.files); });
+let page = 0;
+
+/* ---------- 씬 전환 ---------- */
+function go(n){
+  $$('.scene').forEach((el,i)=>el.classList.toggle('on', i===n));
+  $$('.step').forEach((el,i)=>{
+    el.classList.toggle('on', i===n);
+    el.classList.toggle('done', i<n);
+  });
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+document.addEventListener('click',e=>{
+  const b=e.target.closest('[data-go]'); if(!b) return;
+  const n=+b.dataset.go;
+  if(n>=3 && !S.msgDone) collect();
+  if(n===3) renderBook();
+  go(n);
+});
+
+/* ---------- 입력 수집 ---------- */
+$('#f-likes').addEventListener('click',e=>{
+  const c=e.target.closest('.chip'); if(!c) return; c.classList.toggle('on');
+});
+function collect(){
+  S.name  = $('#f-name').value.trim()  || '김영자';
+  S.year  = +$('#f-year').value || 1942;
+  S.city  = $('#f-city').value;
+  S.level = +$('#f-level').value;
+  S.pet   = $('#f-pet').value.trim()   || '보리';
+  S.grand = $('#f-grand').value.trim() || '지수';
+  S.msg   = $('#f-msg').value.trim();
+  S.likes = $$('#f-likes .chip.on').map(c=>c.dataset.v);
+  S.first = S.name.length>=2 ? S.name.slice(1) : S.name;
+  S.msgDone = true;
+}
+
+/* ---------- 생성 애니메이션 ---------- */
+const LOGS = [
+  ['기억 키워드 분석', ()=>`고향 · ${S.city} / 반려 · ${S.pet} / 손주 · ${S.grand}`],
+  ['생애사 스토리 구성', ()=>`${S.year}년생 · ${new Date().getFullYear()-S.year}세 기준 회상 절정 구간 추출`],
+  ['난이도 자동 조절', ()=>['가벼움','표준','부드러움'][S.level-1]+' 단계로 문항 길이·선택지 수 조정'],
+  ['8가지 인지훈련 배치', ()=>'시지각 · 주의집중 · 기억력 · 사고력 · 회상 · 언어 · 시공간 · 지남력'],
+  ['사진 → 선화 도안 변환', ()=>S.photos.length ? `업로드하신 사진 ${S.photos.length}장을 컬러링 도안·회상 카드로 변환` : '예시 사진으로 도안 생성 (사진을 올리면 실제 사진이 사용됩니다)'],
+  ['인쇄 조판 및 표지 생성', ()=>`『${S.first} 님의 기억 여행』 3권 조판 완료`]
+];
+$('#btn-generate').addEventListener('click',()=>{
+  collect(); go(2);
+  $('#gen-who').textContent = `${S.name} 님의 3권 「${CITY[S.city].sea}의 기억」을 생성하는 중입니다`;
+  const box=$('#gen-log'); box.innerHTML='';
+  LOGS.forEach(([t,f])=>{
+    const d=document.createElement('div'); d.className='logitem';
+    d.innerHTML=`<span class="tick">✓</span><span><b>${t}</b><br><span style="font-size:12.5px;color:var(--ink-l)">${f()}</span></span>`;
+    box.appendChild(d);
+  });
+  const items=$$('.logitem',box); let i=0;
+  $('#gen-bar').style.width='0%'; $('#gen-pct').textContent='0%';
+  $('#btn-openbook').style.display='none';
+  const iv=setInterval(()=>{
+    if(i<items.length){
+      items[i].classList.add('on'); i++;
+      const p=Math.round(i/items.length*100);
+      $('#gen-bar').style.width=p+'%'; $('#gen-pct').textContent=p+'%';
+    } else {
+      clearInterval(iv);
+      $('#btn-openbook').style.display='inline-flex';
+    }
+  },620);
+});
+$('#btn-openbook').addEventListener('click',()=>{ renderBook(); go(3); });
+/* =========================================================
+   SVG 라인아트
+   ========================================================= */
+const SW = 'stroke="#3b3a33" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"';
+const SWT= 'stroke="#3b3a33" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" fill="none"';
+const F  = (id)=>`class="fillable" data-f="${id}" fill="#ffffff"`;
+
+/* --- 산책 장면 --- */
+function sceneWalk(v){                       // v: 'a' 원본 / 'b' 다른그림
+  const has = (x)=> v==='a';
+  return `
+  <rect x="0" y="0" width="400" height="188" ${F('sky')} ${SW}/>
+  <circle cx="345" cy="44" r="21" ${F('sun')} ${SW}/>
+  <path d="M52 56 a15 15 0 0 1 26 -10 a17 17 0 0 1 30 6 a12 12 0 0 1 -3 22 h-46 a13 13 0 0 1 -7 -18z" ${F('cloud1')} ${SW}/>
+  ${has()?`<path d="M186 44 a13 13 0 0 1 22 -9 a15 15 0 0 1 26 5 a10 10 0 0 1 -3 19 h-40 a11 11 0 0 1 -5 -15z" ${F('cloud2')} ${SW}/>`:''}
+  <path d="M0 188 Q120 162 210 176 Q310 190 400 168 L400 300 L0 300 Z" ${F('ground')} ${SW}/>
+  <path d="M0 246 Q140 226 400 250" ${SWT}/>
+  <!-- 나무 -->
+  <rect x="44" y="150" width="13" height="48" rx="3" ${F('trunk1')} ${SW}/>
+  <circle cx="50" cy="136" r="30" ${F('leaf1')} ${SW}/>
+  <circle cx="30" cy="150" r="19" ${F('leaf1b')} ${SW}/>
+  <circle cx="72" cy="150" r="18" ${F('leaf1c')} ${SW}/>
+  <rect x="366" y="158" width="10" height="36" rx="3" ${F('trunk2')} ${SW}/>
+  <circle cx="371" cy="148" r="22" ${F('leaf2')} ${SW}/>
+  <!-- 할머니 -->
+  <path d="M150 128 a19 15 0 0 1 38 0" ${F('hair')} ${SW}/>
+  <circle cx="169" cy="140" r="16" ${F('face')} ${SW}/>
+  <circle cx="163" cy="139" r="1.9" fill="#3b3a33"/><circle cx="176" cy="139" r="1.9" fill="#3b3a33"/>
+  <path d="M164 148 q5 4 10 0" ${SWT}/>
+  <path d="M169 156 L148 226 L190 226 Z" ${F('dress')} ${SW}/>
+  <path d="M156 168 L138 200" ${F('arm1')} ${SW} fill="none"/>
+  <path d="M182 168 L202 196" ${F('arm2')} ${SW} fill="none"/>
+  <path d="M156 226 L154 258 M182 226 L184 258" ${SWT} stroke-width="2.2"/>
+  <ellipse cx="152" cy="261" rx="9" ry="5" ${F('shoe1')} ${SW}/>
+  <ellipse cx="186" cy="261" rx="9" ry="5" ${F('shoe2')} ${SW}/>
+  <path d="M202 196 Q232 202 246 208" ${SWT}/>
+  <!-- 강아지 -->
+  <ellipse cx="272" cy="234" rx="30" ry="20" ${F('body')} ${SW}/>
+  <path d="M244 232 a7 7 0 0 1 0 -12 M254 220 a7 7 0 0 1 8 -6 M286 216 a7 7 0 0 1 9 5" ${SWT}/>
+  <circle cx="306" cy="216" r="16" ${F('dhead')} ${SW}/>
+  <path d="M296 205 a10 12 0 0 0 -11 12 a9 9 0 0 0 11 1z" ${F('ear')} ${SW}/>
+  <circle cx="303" cy="213" r="1.8" fill="#3b3a33"/><circle cx="313" cy="213" r="1.8" fill="#3b3a33"/>
+  <ellipse cx="309" cy="222" rx="4" ry="3" fill="#3b3a33"/>
+  <path d="M256 251 L254 266 M270 253 L269 268 M284 251 L286 266" ${SWT} stroke-width="2.2"/>
+  <path d="M244 226 q-14 -12 -6 -24" ${SWT} stroke-width="2.2"/>
+  ${has()?`<path d="M296 228 q10 6 20 -1" ${F('ribbon')} ${SW}/>`:''}
+  <!-- 꽃 -->
+  ${flower(60,262,'f1')}
+  ${flower(112,272,'f2')}
+  ${has()?flower(336,266,'f3'):''}
+  `;
+}
+function flower(x,y,id){
+  return `<path d="M${x} ${y} L${x} ${y-16}" ${SWT} stroke-width="2"/>
+  <circle cx="${x}" cy="${y-22}" r="5" ${F(id+'c')} ${SW}/>
+  <circle cx="${x-7}" cy="${y-24}" r="4.5" ${F(id+'p')} ${SW}/>
+  <circle cx="${x+7}" cy="${y-24}" r="4.5" ${F(id+'p2')} ${SW}/>
+  <circle cx="${x}" cy="${y-31}" r="4.5" ${F(id+'p3')} ${SW}/>`;
+}
+
+/* --- 바다·등대 장면 (컬러링) --- */
+function sceneSea(petName){
+  return `
+  <rect x="0" y="0" width="400" height="150" ${F('sky')} ${SW}/>
+  <circle cx="60" cy="42" r="20" ${F('sun')} ${SW}/>
+  <path d="M132 44 a13 13 0 0 1 22 -9 a15 15 0 0 1 26 5 a10 10 0 0 1 -3 19 h-40 a11 11 0 0 1 -5 -15z" ${F('cloud')} ${SW}/>
+  <path d="M232 32 q8 -8 16 0 M252 30 q8 -8 16 0" ${SWT}/>
+  <rect x="0" y="150" width="400" height="82" ${F('sea')} ${SW}/>
+  <path d="M8 172 q14 -8 28 0 t28 0 t28 0 M120 190 q14 -8 28 0 t28 0 M24 208 q14 -8 28 0 t28 0" ${SWT}/>
+  <path d="M240 178 q14 -8 28 0 t28 0 M300 200 q14 -8 28 0 t28 0" ${SWT}/>
+  <!-- 배 -->
+  <path d="M96 154 L146 154 L138 168 L104 168 Z" ${F('boat')} ${SW}/>
+  <path d="M121 154 L121 126 L142 148 Z" ${F('sail')} ${SW}/>
+  <!-- 등대 -->
+  <path d="M292 232 L300 106 L332 106 L340 232 Z" ${F('tower')} ${SW}/>
+  <path d="M303 148 L329 148 M301 178 L331 178 M298 208 L334 208" ${SWT}/>
+  <rect x="296" y="90" width="40" height="18" rx="3" ${F('lamp')} ${SW}/>
+  <path d="M300 90 L316 70 L332 90 Z" ${F('roof')} ${SW}/>
+  <circle cx="316" cy="66" r="3.5" ${F('tip')} ${SW}/>
+  <path d="M292 96 L262 84 M340 96 L370 84" ${SWT}/>
+  <!-- 모래 -->
+  <path d="M0 232 Q120 218 240 230 Q330 238 400 226 L400 280 L0 280 Z" ${F('sand')} ${SW}/>
+  <!-- 강아지 -->
+  <ellipse cx="120" cy="252" rx="26" ry="17" ${F('dbody')} ${SW}/>
+  <circle cx="150" cy="238" r="14" ${F('dhead')} ${SW}/>
+  <path d="M141 228 a9 11 0 0 0 -10 11 a8 8 0 0 0 10 1z" ${F('dear')} ${SW}/>
+  <circle cx="147" cy="235" r="1.6" fill="#3b3a33"/><circle cx="156" cy="235" r="1.6" fill="#3b3a33"/>
+  <ellipse cx="152" cy="243" rx="3.5" ry="2.6" fill="#3b3a33"/>
+  <path d="M106 266 L105 276 M120 268 L119 278 M133 266 L134 276" ${SWT} stroke-width="2.2"/>
+  <path d="M95 246 q-13 -11 -5 -22" ${SWT} stroke-width="2.2"/>
+  <!-- 조개 -->
+  <path d="M212 262 a11 9 0 0 1 22 0 z" ${F('shell')} ${SW}/>
+  <path d="M217 262 L221 254 M223 262 L223 253 M229 262 L226 254" ${SWT}/>
+  <path d="M356 258 a9 7 0 0 1 18 0 z" ${F('shell2')} ${SW}/>
+  <text x="200" y="20" text-anchor="middle" font-size="11" fill="#8d8677" font-family="sans-serif">${petName}와(과) 함께 걷던 바닧가</text>
+  `;
+}
+
+/* --- 아이콘 -
