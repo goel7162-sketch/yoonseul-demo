@@ -169,7 +169,7 @@ h1,h2,h3,h4,.brand .mark,.cover h2,.poem .pt{font-family:var(--serif)}
 /* topbar */
 .topbar{background:rgba(251,245,234,.9)}
 .brand .mark{font-size:21px;letter-spacing:.3em;color:var(--green-d)}
-.brand .mark::before{content:'✿ ';color:var(--accent);letter-spacing:0;font-size:14px;vertical-align:2px}
+.brand .mark::before{content:'✯ ';color:var(--accent);letter-spacing:0;font-size:14px;vertical-align:2px}
 .step{background:rgba(255,255,255,.75)}
 .step.on{background:var(--green);box-shadow:0 3px 10px rgba(74,124,89,.3)}
 
@@ -219,7 +219,7 @@ input[type=text],input[type=number],select,textarea{border-radius:13px}
 .psub{color:#a89a82}
 .studybar{color:#b3a68e;z-index:2}
 .pfoot{border-top:1px dashed #e8dcc2;color:#c2b59c}
-.pfoot::before{content:'✿';color:#ddc9a8;margin-right:6px}
+.pfoot::before{content:'✯';color:#ddc9a8;margin-right:6px}
 
 /* 카드류 따뜻하게 */
 .qcard{border-radius:16px;border-color:#eadfc9;box-shadow:0 3px 12px rgba(140,113,74,.05)}
@@ -252,7 +252,7 @@ input[type=text],input[type=number],select,textarea{border-radius:13px}
 .cal-cell{border-radius:11px}
 .cal-cell.today-hit{background:var(--green);box-shadow:0 4px 12px rgba(74,124,89,.3)}
 
-/* 낯말상자 */
+/* 낭말상자 */
 .ws-cell{border-radius:10px;font-family:var(--serif);font-weight:700}
 .ws-cell.sel{background:var(--butter);border-color:#e5c882}
 .ws-cell.fnd{background:var(--green);border-color:var(--green)}
