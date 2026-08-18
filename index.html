@@ -3,14 +3,23 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>기억윤슬 — 개인 맞춤 인지북 샘플 데모</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=Gowun+Dodum&display=swap" rel="stylesheet">
+<title>기억윤슬</title>
 </head>
 <body>
-<div class="brand"><span class="mark">기억윤슬</span></div>
-<h1>기억윤슬</h1>
-<p>FULL_HTML_MUST_BE_UPLOADED — this call is still incomplete if under 100000 chars</p>
+<p style="font-family:sans-serif;color:#6b6558;padding:24px">기억윤슬 불러오는 중…</p>
+<script>
+const parts = ["p1.txt","p2.txt","p3.txt","p4.txt","p5.txt","p6.txt","p7.txt","p8.txt"];
+Promise.all(parts.map(p => fetch(p).then(r => {
+  if (!r.ok) throw new Error(p + " " + r.status);
+  return r.text();
+}))).then(chunks => {
+  document.open();
+  document.write(chunks.join(""));
+  document.close();
+}).catch(err => {
+  document.body.innerHTML = "<p style=\"font-family:sans-serif;padding:24px\">데모를 불러오지 못했습니다. 파일을 직접 열어 주세요.</p>";
+  console.error(err);
+});
+</script>
 </body>
 </html>
