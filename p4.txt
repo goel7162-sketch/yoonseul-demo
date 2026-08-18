@@ -1,0 +1,194 @@
+-- */
+const ICONS = {
+  '주전자':`<path d="M14 26 h26 v20 a10 10 0 0 1 -10 10 h-6 a10 10 0 0 1 -10 -10z" ${F('i')} ${SW}/><path d="M40 32 q10 2 10 8 t-8 6" ${SWT} stroke-width="2.2"/><path d="M20 26 q7 -8 14 0" ${SWT} stroke-width="2.2"/><circle cx="27" cy="19" r="3" ${SWT} stroke-width="2.2"/>`,
+  '라디오':`<rect x="9" y="22" width="46" height="30" rx="4" ${F('i')} ${SW}/><circle cx="22" cy="37" r="8" ${SWT} stroke-width="2.2"/><path d="M40 30 h10 M40 37 h10 M40 44 h10" ${SWT} stroke-width="2.2"/><path d="M18 22 L12 10 M40 22 L48 10" ${SWT} stroke-width="2.2"/>`,
+  '부채':`<path d="M32 54 L10 24 a26 26 0 0 1 44 0z" ${F('i')} ${SW}/><path d="M32 54 L32 24 M32 54 L18 30 M32 54 L46 30" ${SWT}/><circle cx="32" cy="54" r="3" ${SW} fill="#3b3a33"/>`,
+  '꽃':`<path d="M32 56 L32 34" ${SWT} stroke-width="2.2"/><path d="M32 46 q-10 -2 -13 -10 q10 -1 13 6" ${F('i')} ${SW}/><circle cx="32" cy="24" r="8" ${F('i2')} ${SW}/><circle cx="20" cy="26" r="7" ${F('i3')} ${SW}/><circle cx="44" cy="26" r="7" ${F('i4')} ${SW}/><circle cx="32" cy="12" r="7" ${F('i5')} ${SW}/>`,
+  '시계':`<circle cx="32" cy="33" r="21" ${F('i')} ${SW}/><path d="M32 20 L32 33 L42 39" ${SWT} stroke-width="2.4"/><path d="M22 10 L16 4 M42 10 L48 4" ${SWT} stroke-width="2.2"/>`,
+  '우산':`<path d="M6 32 a26 26 0 0 1 52 0z" ${F('i')} ${SW}/><path d="M6 32 q9 -8 17 0 q9 -8 18 0 q8 -8 17 0" ${SWT} stroke-width="2"/><path d="M32 32 L32 52 a7 7 0 0 0 12 3" ${SWT} stroke-width="2.2"/>`,
+  '안경':`<circle cx="18" cy="34" r="11" ${F('i')} ${SW}/><circle cx="46" cy="34" r="11" ${F('i2')} ${SW}/><path d="M29 32 q3 -4 6 0" ${SWT} stroke-width="2.2"/><path d="M7 30 L2 24 M57 30 L62 24" ${SWT} stroke-width="2.2"/>`,
+  '신발':`<path d="M8 42 h24 l12 6 h12 a4 4 0 0 1 0 8 h-48z" ${F('i')} ${SW}/><path d="M8 42 q0 -12 8 -12 q4 8 12 10" ${SWT} stroke-width="2.2"/>`,
+  '챃잔':`<path d="M14 24 h28 v16 a14 14 0 0 1 -28 0z" ${F('i')} ${SW}/><path d="M42 28 q10 1 10 7 t-10 6" ${SWT} stroke-width="2.2"/><path d="M10 56 h38" ${SWT} stroke-width="2.4"/><path d="M22 16 q4 -5 0 -9 M32 16 q4 -5 0 -9" ${SWT} stroke-width="2"/>`,
+  '강아지':`<circle cx="32" cy="34" r="17" ${F('i')} ${SW}/><path d="M20 22 a11 13 0 0 0 -12 13 a10 10 0 0 0 12 2z" ${F('i2')} ${SW}/><path d="M44 22 a11 13 0 0 1 12 13 a10 10 0 0 1 -12 2z" ${F('i3')} ${SW}/><circle cx="26" cy="32" r="2" fill="#3b3a33"/><circle cx="38" cy="32" r="2" fill="#3b3a33"/><ellipse cx="32" cy="41" rx="4" ry="3" fill="#3b3a33"/><path d="M32 44 v4 M28 50 q4 3 8 0" ${SWT} stroke-width="1.8"/>`,
+  '나비':`<path d="M32 20 L32 46" ${SWT} stroke-width="2.2"/><path d="M32 26 q-16 -16 -22 -2 q-4 12 12 14 q8 1 10 -6z" ${F('i')} ${SW}/><path d="M32 26 q16 -16 22 -2 q4 12 -12 14 q-8 1 -10 -6z" ${F('i2')} ${SW}/><path d="M30 18 q-4 -8 -9 -8 M34 18 q4 -8 9 -8" ${SWT} stroke-width="1.8"/>`,
+  '주사위':`<rect x="14" y="14" width="36" height="36" rx="6" ${F('i')} ${SW}/><circle cx="24" cy="24" r="3" fill="#3b3a33"/><circle cx="40" cy="24" r="3" fill="#3b3a33"/><circle cx="32" cy="32" r="3" fill="#3b3a33"/><circle cx="24" cy="40" r="3" fill="#3b3a33"/><circle cx="40" cy="40" r="3" fill="#3b3a33"/>`
+};
+const ic = (n,cls='')=>`<svg viewBox="0 0 64 64" class="${cls}">${ICONS[n]||''}</svg>`;
+/* =========================================================
+   책 페이지 렌더
+   ========================================================= */
+const PALETTE = ['#e8b4b8','#f2d0a4','#f7e8a4','#b5d6a7','#a7c8d6','#b8a7d6','#d6a7b8','#c9a97f','#e0e0d8','#8fbfa8','#f0b7a0','#ffffff'];
+let curColor = PALETTE[0];
+
+/* 근거 설명 박스 — 각 훈련이 왜 효과가 있는지 (이론 근거 포함) */
+function why(title, body, theory){
+  return `<div style="margin-top:22px;background:var(--green-l);border-left:4px solid var(--green-m);border-radius:0 12px 12px 0;padding:15px 18px">
+    <div style="font-size:12px;font-weight:800;color:var(--green-d);letter-spacing:.06em;margin-bottom:6px">💡 왜 효과가 있나요? — ${title}</div>
+    <div style="font-size:13px;color:var(--ink);line-height:1.75">${body}</div>
+    <div style="font-size:11.5px;color:var(--ink-l);margin-top:8px;line-height:1.6">📖 <b>이론 근거</b> · ${theory}</div>
+  </div>`;
+}
+
+function pages(){
+  const c = CITY[S.city];
+  const yr = S.year;
+  const age = new Date().getFullYear()-yr;
+  const likes = S.likes.length? S.likes : ['산책'];
+  const bump0 = yr+10, bump1 = yr+30;
+
+  return [
+  /* ---- 0 표지 ---- */
+  {label:'표지', tag:null, html:`
+    <div class="cover">
+      <div class="vol">MEMORY BOOK · VOL.3</div>
+      <h2>${S.first} 님의 기억 여행</h2>
+      <div class="own">${S.name} · ${yr}년 ${S.city} 출생</div>
+      <svg viewBox="0 0 400 300" style="max-width:430px;width:100%;border:1.5px solid var(--line);border-radius:14px;background:#fff">${sceneWalk('a')}</svg>
+      ${S.photos.length?`<div style="display:flex;gap:16px;justify-content:center;margin-top:20px;flex-wrap:wrap">${S.photos.map((p,i)=>`<div style="background:#fff;padding:7px 7px 22px;box-shadow:0 4px 14px rgba(0,0,0,.14);transform:rotate(${(i-1)*3}deg);border-radius:3px"><img src="${p}" style="width:108px;height:108px;object-fit:cover;display:block"></div>`).join('')}</div>`:''}
+      <div class="badge">3권 · ${c.sea}의 기억 &nbsp;|&nbsp; ${S.pet}와 함께</div>
+      <div class="meta">이 책은 ${S.name} 님 한 분만을 위해 만들어졌습니다.<br>가족이 들려준 이야기와 사진으로 구성된, 세상에 단 한 권뿐인 책입니다.</div>
+    </div>
+    ${why('세상에 단 한 권뿐인 책',
+      `사람은 <b>자기 자신과 관련된 정보를 훐씬 잘 기억하고, 더 집중</b>합니다. 남의 이야기가 담긴 범용 교재보다 "내 이름, 내 고향, 내 강아지"가 나오는 책에 어르신이 먼저 손을 빻는 이유입니다. 중요한 점은, 이 <b>자기참조 기억 효과가 인지 저하가 시작된 후에도 비교적 오래 보존</b>된다는 것입니다.`,
+      `자기참조효과(Self-Reference Effect, Rogers 외 1977) — 자기와 연결해 처리한 정보는 기억이 더 오래 남는다는 심리학의 고전적 발견. 알츠하이머 환자에서도 이 효과가 일부 유지된다는 후속 연구들이 있습니다.`)}
+  `},
+
+  /* ---- 1 시지각: 다른 그림 찾기 ---- */
+  {label:'1 · 시지각 훈련', tag:['01','시지각 훈련','형태·색채 구분 · 시각 탐색',['집중력','시공간력']], html:`
+    <h3>${S.pet}와 함께 찾기</h3>
+    <p class="lead">${S.pet}와 산책하던 날이에요. 두 그림에서 <b>다른 곳 세 군데</b>를 찾아 눌러 보세요.</p>
+    <div class="sd-wrap">
+      <div class="sd-box"><span class="cap">원본</span><svg viewBox="0 0 400 300">${sceneWalk('a')}</svg></div>
+      <div class="sd-box"><span class="cap">무엇이 달라졌을까요?</span>
+        <svg viewBox="0 0 400 300" id="sd-b">${sceneWalk('b')}
+          <g class="hot" data-sd="1"><circle class="ring" cx="209" cy="46" r="34"/><circle cx="209" cy="46" r="34" fill="transparent"/></g>
+          <g class="hot" data-sd="2"><circle class="ring" cx="306" cy="228" r="26"/><circle cx="306" cy="228" r="26" fill="transparent"/></g>
+          <g class="hot" data-sd="3"><circle class="ring" cx="336" cy="252" r="24"/><circle cx="336" cy="252" r="24" fill="transparent"/></g>
+        </svg>
+      </div>
+    </div>
+    <div class="scoreline"><span class="pill" id="sd-score">0 / 3</span><span id="sd-msg">그림을 찬찬히 비교해 보세요. 서두르지 않으셔도 됩니다.</span></div>
+    ${why('익숙한 장면 속에서 차이 찾기',
+      `다른 그림 찾기는 <b>시각 탐색·선택적 주의</b>를 쓰는 대표적 활동입니다. 낯설 그림이면 "뭐가 뭐지 몰라" 하고 덮어버리기 쉮지만, <b>매일 걷던 산책길과 우리 집 강아지</b>라면 이야기가 달라집니다. 장면 자체를 이미 알고 계시기 때문에 부담은 줄고, "어? ${S.pet} 리본이 없네" 하는 발견이 자연스러운 대화로 이어집니다.`,
+      `친숙성 효과 — 친숙한 자극일수록 과제 참여 동기와 지속 시간이 늘어납니다. 자기결정이론(Deci & Ryan)의 관점에서, 억지로 시키는 훈련이 아니라 "내 이야기라서 하고 싶은" 내재적 동기를 만드는 설계입니다.`)}
+  `},
+
+  /* ---- 2 회상: 색칠하기 ---- */
+  {label:'2 · 회상+미술 활동', tag:['02','회상 · 미술 활동','자전적 기억 회상 · 소근육',['기억력','정서']], html:`
+    <h3>${c.sea}, ${S.pet}와 걷던 날</h3>
+    <p class="lead">아래에서 색을 고른 뒤, 그림을 눌러 색칠해 보세요. 색칠하며 그날 이야기를 들려주세요.</p>
+    <div class="color-stage"><svg viewBox="0 0 400 290" id="coloring">${sceneSea(S.pet)}</svg></div>
+    <div class="palette" id="palette">${PALETTE.map((p,i)=>`<button class="swatch${i===0?' on':''}" data-c="${p}" style="background:${p}" title="${p}"></button>`).join('')}</div>
+    <div class="tools"><button class="tbtn" id="c-reset">처음부터 다시</button><button class="tbtn" id="c-auto">은은하게 자동 채색</button></div>
+    ${S.photos.length?`
+    <div style="margin-top:22px">
+      <div style="font-size:13px;font-weight:800;color:var(--green-d);margin-bottom:9px">📷 업로드하신 사진도 이렇게 컬러링 도안이 됩니다 <span style="font-weight:400;color:var(--ink-l)">(브라우저 실시간 변환 시연)</span></div>
+      <div class="sd-wrap">
+        <div class="sd-box"><span class="cap">원본 사진</span><img src="${S.photos[0]}" style="width:100%;border-radius:8px;display:block;margin-top:18px"></div>
+        <div class="sd-box"><span class="cap">선화 도안 변환</span><img src="${S.photos[0]}" style="width:100%;border-radius:8px;display:block;margin-top:18px;filter:url(#sketchF)"></div>
+      </div>
+    </div>`:''}
+    ${why('내 추억의 장소를 색칠하기',
+      `이 도안은 아무 바다가 아니라 <b>${S.name} 님이 실제로 걷던 ${c.sea}</b>입니다. 색을 고르는 동안 자연스럽게 "그때 그 바다는 무슨 색이었지?" 하고 <b>기억을 스스로 꺼내는 회상</b>이 일어나고, 손끝의 채색은 소근육과 눈-손 협응을 함께 쓰니다. 컬러링 자체보다 중요한 것은 <b>색칠하며 가족과 나누는 대화</b>입니다 — "여기서 ${S.grand}랑 조개 주웠잡아" 같은 한 마디가 이 페이지의 진짜 목표입니다.`,
+      `회상요법(Reminiscence Therapy, Butler 1963의 인생회고 개념에서 출발) — 옛 기억을 떠올려 이야기하는 활동은 어르신의 우울 완화와 의사소통 개선에 도움이 된다는 연구들이 축적되어 있습니다(Cochrane 리뷰 2018). 특히 사진·장소 등 개인 단서를 쓰는 개별 회상이 효과적입니다.`)}
+  `},
+
+  /* ---- 3 기억력 ---- */
+  {label:'3 · 기억력 훈련', tag:['03','기억력 훈련','작업기억 · 단기기억',['기억력','집중력']], html:`
+    <h3>방금 본 물건을 기억해요</h3>
+    <p class="lead">${yr+20}년대, ${S.name} 님의 살림살이입니다. <b>6개 물건을 10초간</b> 잘 봐 두세요.</p>
+    <div id="mem-stage"></div>
+    ${why('그 시절 물건으로 하는 기억 놀이',
+      `기억력 훈련에 쓰는 물건이 스마트폰이나 노트북이 아니라 <b>주전자·라디오·부채</b>인 이유가 있습니다. 치매·인지 저하에서는 <b>최근 기억부터 흐려지고 젊은 시절 기억은 오래 남는</b> 경향이 있습니다. 특히 10~30대에 겪은 일은 평생 가장 선명하게 남는데, 이를 '회상 절정'이라 부릅니다. ${S.name} 님께는 ${bump0}~${bump1}년 무렵이 바로 그 시기 — 그 시절 물건은 기억의 문을 여는 가장 좋은 열쇠입니다.`,
+      `회상 절정(Reminiscence Bump, Rubin 외) · 리보의 법칙(Ribot's Law) — 자전적 기억은 청년기에 집중적으로 형성되고, 기억 소실은 최신 기억부터 진행됩니다. 그래서 개인의 연령대에 맞춘 시대 소품이 범용 그림보다 회상을 잘 끌어냅니다.`)}
+  `},
+
+  /* ---- 4 사고력 ---- */
+  {label:'4 · 사고능력 훈련', tag:['04','사고능력 훈련','범주 분류 · 순서 배열 · 실행기능',['판단력']], html:`
+    <h3>어울리지 않는 하나는?</h3>
+    <p class="lead">넷 중에 성격이 다른 하나를 골라 보세요.</p>
+    <div class="qcard odd-set" data-a="우산">
+      <div class="q"><span class="n">1</span>${c.market}에서 산 과일 바구니에 잘못 들어간 것은?</div>
+      <div class="optlist"><button class="oddo opt">🍎 사과</button><button class="oddo opt">🍐 배</button><button class="oddo opt">☂️ 우산</button><button class="oddo opt">🍊 귤</button></div>
+      <div class="odd-fb" style="padding-left:31px;margin-top:8px;font-size:13px;color:var(--ink-l)"></div>
+    </div>
+    <div class="qcard odd-set" data-a="기차">
+      <div class="q"><span class="n">2</span>${S.pet}와 산책길에서 볼 수 없는 것은?</div>
+      <div class="optlist"><button class="oddo opt">🌳 나무</button><button class="oddo opt">🚂 기차</button><button class="oddo opt">🌷 꽃</button><button class="oddo opt">🐦 참새</button></div>
+      <div class="odd-fb" style="padding-left:31px;margin-top:8px;font-size:13px;color:var(--ink-l)"></div>
+    </div>
+    <div class="qcard">
+      <div class="q"><span class="n">3</span>칼국수를 끜이는 순서대로 눌러 보세요</div>
+      <div class="optlist" id="seq">
+        <button class="seqb opt" data-i="2">송송 썮기</button>
+        <button class="seqb opt" data-i="0">반주 치대기</button>
+        <button class="seqb opt" data-i="3">팔팔 끜이기</button>
+        <button class="seqb opt" data-i="1">밀대로 밀기</button>
+      </div>
+      <div id="seq-fb" style="padding-left:31px;margin-top:8px;font-size:13px;color:var(--ink-l)">평생 해 오신 그 순서 그대로면 됩니다.</div>
+    </div>
+    ${why('분류하고, 순서를 세우기',
+      `"어느 것이 다른가", "무엇이 먼저인가"를 판단하는 힘은 <b>실행기능</b> — 요리, 장보기, 약 복용 같은 일상 자립의 핵심 능력입니다. 문제 소재를 ${c.market} 장보기와 평생 해 오신 요리로 만든 이유는, <b>몸에 밴 절차 기억(요리 순서)은 인지 저하에서도 오래 남기</b> 때문입니다. 잘 아는 절차 위에서 판단 연습을 하면 실패 부담 없이 사고력을 쓤 수 있습니다.`,
+      `인지예비능(Cognitive Reserve, Stern) — 교육·직업·여가활동으로 쌓인 인지의 "여유분"이 뇌 변화의 영향을 완충한다는 이론. 다양한 종류의 인지 과제를 꾸준히 섞어 쓰는 것이 예비능 유지에 유리하며, 절차 기억(암묵 기억)은 서술 기억보다 늦게까지 보존됩니다.`)}
+  `},
+
+  /* ---- 5 짝꼬도형 ---- */
+  {label:'5 · 짝꼬도형 찾기', tag:['05','짝꼬도형 찾기','시공간 구성 · 심상 완성',['집중력','시공간력']], html:`
+    <h3>짝꼬 도형을 찾아 주세요</h3>
+    <p class="lead">왼쪽 도형과 오른쪽 도형을 합쳤을 때 <b>빈칸 없이 꼭 차면</b> 짝꼬이에요.<br>왼쪽 하나를 누르고, 짝이 되는 오른쪽을 누르 선으로 이어 보세요.</p>
+    <div class="pair-wrap" id="pair">
+      <svg class="pair-lines" id="pair-svg"></svg>
+      <div class="pair-col" id="pair-l"></div>
+      <div class="pair-col" id="pair-r"></div>
+    </div>
+    <div class="scoreline" style="justify-content:center"><span class="pill" id="pair-score">0 / 3</span><span id="pair-msg">서로 채워 주는 짝을 찾아보세요.</span></div>
+    ${why('머릿속으로 도형 합쳐 보기',
+      `두 도형을 머릿속에서 포개어 보는 것은 <b>시공간 구성 능력</b> — 옷의 앞뒤를 맞추고, 서랍을 정리하고, 길을 찾는 데 쓰이는 바로 그 능력입니다. 눈앞에 없는 결과를 머릿속으로 그려 보는 <b>심상 훈련</b>은 종이 교재가 잘할 수 있는 영역이에요. 실물 책에서는 색연필로 빈칸을 직접 칠하며 확인합니다.`,
+      `시공간 처리 — 시공간 능력은 인지 저하 초기에 변화가 나타날 수 있는 영역으로, 도형 모사·구성 과제는 표준 인지검사(MMSE의 도형 그리기 등)에도 포함됩니다. 여러 인지 영역을 고루 자극하는 다요소 구성이 단일 과제 반복보다 낫다는 것이 MCI 중재 메타분석(Sherman 외 2017)의 시사점입니다.`)}
+  `},
+
+  /* ---- 4 회상 질문 ---- */
+  {label:'6 · 회상 훈련', tag:['06','회상 훈련','자전적 기억 · 감정 표현',['기억력','정서']], html:`
+    <h3>${S.city}의 추억을 떠올려 보세요</h3>
+    <p class="lead">정답은 없습니다. 떠오르는 대로 고르고, 이야기해 주세요.</p>
+    ${S.photos.length?`
+    <div class="qcard" style="border-color:var(--green-m);background:linear-gradient(150deg,#fff,var(--green-l))">
+      <div class="q"><span class="n" style="background:var(--accent)">★</span>이 사진을 보고 이야기해 주세요</div>
+      <div style="display:flex;gap:18px;align-items:flex-start;padding-left:31px;flex-wrap:wrap">
+        <img src="${S.photos[S.photos.length-1]}" style="width:170px;max-width:44%;border-radius:10px;border:1px solid var(--line)">
+        <div style="font-size:14.5px;line-height:2.15;color:var(--ink)">
+          · 언제, 어디서 찍은 사진일까요?<br>
+          · 사진 속에 누가 함께 있나요?<br>
+          · 그날 어떤 기분이셨나요?
+        </div>
+      </div>
+    </div>`:''}
+    <div class="qcard">
+      <div class="q"><span class="n">1</span>가장 자주 가시던 곳은 어디였나요?</div>
+      <div class="optlist">${c.places.map(p=>`<button class="opt">${p}</button>`).join('')}<button class="opt">기억나는 다른 곳</button></div>
+    </div>
+    <div class="qcard">
+      <div class="q"><span class="n">2</span>${c.market}에서 주로 무엇을 사셨나요?</div>
+      <div class="writeline"><input type="text" placeholder="예) 고등어 한 손, 콩나물…"></div>
+    </div>
+    <div class="qcard">
+      <div class="q"><span class="n">3</span>${S.grand}(이)와 함께 가 본 곳이 있다면요?</div>
+      <div class="writeline"><input type="text" placeholder="이야기를 적거나, 가족에게 들려주세요"></div>
+    </div>
+    <div class="qcard">
+      <div class="q"><span class="n">4</span>그 시절로 하루 돌아간다면, 무엇을 하고 싶으세요?</div>
+      <div class="writeline"><input type="text"></div>
+    </div>
+    ${why('인생을 이야기로 정리하기',
+      `나이가 들며 자기 삶을 돌아보고 이야기로 정리하는 일은 자연스러운 심리 과정이며, <b>"내 삶은 살 만한 가치가 있었다"는 자아 통합감</b>으로 이어집니다. 이 질문들은 시험이 아니라 그 과정을 돕는 말걸기입니다. 답이 책에 적히면 그대로 <b>가족에게 남는 생애 기록</b>이 되고, 손주 ${S.grand}(이)가 처음 듣는 할머니·할아버지의 이야기가 됩니다.`,
+      `인생회고(Life Review, Butler 1963) · 에릭슨의 심리사회 발달이론 8단계 "자아통합 대 절망" — 노년기에 삶을 회고·수용하는 과정이 정서적 안녕에 중요하다는 이론. 구조화된 인생회고 활동은 노인 우울 완화 연구에서 반복적으로 다뤄져 왔습니다.`)}
+  `},
+
+  /* ---- 6 음악 회상 ---- */
+  {label:'7 · 음악 회상', tag:['07','음악 회상','애창곡 · 정서 자극 · 장기 기억',['기억력','언어력']], html:`
+    <h3>노래 한 소절, 기억 한 자락</h3>
+    <p class="lead">아래 노랫말의 빈칸을 채우고, 소리 내어 한 소절 불러 보세요.</p>
+    <div class="blank-sent" id="lyric"></div>
+    <div class="wordbank" id="lbank"></div>
+    <div class="qcard" style="margin-top:18px">
+      <div class="q"><span class="n">♪</span>${S.name} 님의 애창곡은 무엇인가
