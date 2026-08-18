@@ -1,0 +1,253 @@
+38px;margin:16px 0 4px;color:var(--green-d);font-weight:800;letter-spacing:.02em}
+.cover .own{font-size:16px;color:var(--ink-l);margin-bottom:26px}
+.cover .badge{display:inline-block;font-size:11px;border:1px solid var(--green-m);color:var(--green);border-radius:100px;padding:5px 15px;margin-top:22px}
+.cover .meta{margin-top:26px;font-size:12.5px;color:var(--ink-l);line-height:2}
+
+/* ---------- spot the difference ---------- */
+.sd-wrap{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.sd-box{background:#fff;border:1.5px solid var(--line);border-radius:12px;padding:10px;position:relative}
+.sd-box .cap{position:absolute;top:8px;left:12px;font-size:11px;color:var(--ink-l);font-weight:700}
+.sd-box svg{width:100%;height:auto;display:block}
+.hot{cursor:pointer}
+.hot circle.ring{fill:none;stroke:#e05b3a;stroke-width:3;opacity:0;transition:.25s}
+.hot.found circle.ring{opacity:1}
+.scoreline{display:flex;align-items:center;gap:12px;margin-top:16px;font-size:13.5px;color:var(--ink-l);flex-wrap:wrap}
+.pill{background:var(--green-l);color:var(--green-d);border-radius:100px;padding:5px 14px;font-weight:800;font-size:13px}
+.pill.done{background:var(--green);color:#fff}
+
+/* ---------- coloring ---------- */
+.color-stage{background:#fff;border:1.5px solid var(--line);border-radius:12px;padding:8px}
+.color-stage svg{width:100%;height:auto;display:block;touch-action:manipulation}
+.fillable{cursor:pointer;transition:fill .18s}
+.fillable:hover{opacity:.85}
+.palette{display:flex;flex-wrap:wrap;gap:9px;justify-content:center;margin-top:16px}
+.swatch{width:34px;height:34px;border-radius:50%;border:2.5px solid #fff;box-shadow:0 0 0 1.5px var(--line);transition:.15s}
+.swatch:hover{transform:scale(1.1)}
+.swatch.on{box-shadow:0 0 0 2.5px var(--green);transform:scale(1.14)}
+.tools{display:flex;gap:8px;justify-content:center;margin-top:12px}
+.tbtn{font-size:12.5px;border:1.5px solid var(--line);border-radius:100px;padding:7px 16px;background:#fff;color:var(--ink-l)}
+.tbtn:hover{border-color:var(--green-m);color:var(--green)}
+
+/* ---------- reminiscence Q ---------- */
+.qcard{background:#fff;border:1.5px solid var(--line);border-radius:14px;padding:18px 20px;margin-bottom:14px}
+.qcard .q{font-size:15.5px;font-weight:700;margin-bottom:12px;display:flex;gap:9px}
+.qcard .q .n{flex:0 0 22px;height:22px;border-radius:50%;background:var(--green);color:#fff;font-size:11.5px;display:flex;align-items:center;justify-content:center;font-weight:800;margin-top:2px}
+.optlist{display:flex;flex-wrap:wrap;gap:8px;padding-left:31px}
+.opt{border:1.5px solid var(--line);background:var(--paper);border-radius:9px;padding:8px 15px;font-size:14px;color:var(--ink-l);transition:.15s}
+.opt:hover{border-color:var(--green-m)}
+.opt.on{background:var(--green-l);border-color:var(--green);color:var(--green-d);font-weight:700}
+.writeline{margin:12px 0 0 31px;border-bottom:1.5px dashed var(--line);min-height:34px}
+.writeline input{border:none;background:none;width:100%;padding:4px 2px;font-size:15px}
+.writeline input:focus{background:none}
+
+/* ---------- language ---------- */
+.cho-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+.cho{background:#fff;border:1.5px solid var(--line);border-radius:13px;padding:15px 17px}
+.cho .k{font-size:24px;font-weight:800;letter-spacing:.3em;color:var(--green-d)}
+.cho .h{font-size:12.5px;color:var(--ink-l);margin:4px 0 10px}
+.cho input{padding:9px 12px;font-size:14px}
+.cho.right{border-color:var(--green);background:var(--green-l)}
+.cho .ok{font-size:12px;color:var(--green);font-weight:800;margin-top:7px;display:none}
+.cho.right .ok{display:block}
+.blank-sent{font-size:17px;line-height:2.5;background:#fff;border:1.5px solid var(--line);border-radius:13px;padding:18px 20px}
+.blank{
+  display:inline-block;min-width:82px;border-bottom:2.5px solid var(--green-m);text-align:center;
+  color:var(--green-d);font-weight:800;cursor:pointer;padding:0 6px
+}
+.blank.empty{color:#ccc4b4}
+.wordbank{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.word{border:1.5px solid var(--line);background:#fff;border-radius:100px;padding:7px 16px;font-size:14px;transition:.15s}
+.word:hover{border-color:var(--green-m)}
+.word.used{opacity:.32;text-decoration:line-through}
+
+/* ---------- memory / attention ---------- */
+.icon-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.icard{
+  background:#fff;border:2px solid var(--line);border-radius:14px;padding:12px 8px;text-align:center;transition:.18s
+}
+.icard svg{width:100%;height:64px}
+.icard .nm{font-size:12.5px;color:var(--ink-l);margin-top:5px}
+.icard.pick{border-color:var(--green);background:var(--green-l)}
+.icard.wrong{border-color:#e05b3a;background:#fdeeea}
+.icard.hidden-item{opacity:.18;filter:grayscale(1)}
+.mem-strip{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;background:var(--green-l);border-radius:14px;padding:16px}
+.timer{font-size:30px;font-weight:800;color:var(--green);text-align:center;margin:10px 0}
+
+/* ---------- closing ---------- */
+.msg-card{background:linear-gradient(160deg,#fff,var(--green-l));border:1.5px solid var(--green-m);border-radius:18px;padding:26px 28px;text-align:center}
+.msg-card .quote{font-size:18px;line-height:1.9;color:var(--green-d);font-weight:600}
+.msg-card .from{margin-top:14px;font-size:13px;color:var(--ink-l)}
+.qr-row{display:flex;gap:18px;align-items:center;justify-content:center;margin-top:22px;flex-wrap:wrap}
+.qr{width:104px;height:104px;background:#fff;border:1.5px solid var(--line);border-radius:12px;padding:8px}
+.qr svg{width:100%;height:100%}
+
+/* ---------- subscribe ---------- */
+.sub-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:22px;max-width:900px;margin:0 auto}
+.card{background:#fff;border:1px solid var(--line);border-radius:18px;padding:26px 28px}
+.card h4{margin:0 0 16px;font-size:17px;color:var(--green-d)}
+.plan{display:flex;justify-content:space-between;align-items:baseline;padding:11px 0;border-bottom:1px dashed var(--cream-d);font-size:14px}
+.plan:last-child{border:none}
+.plan b{font-size:15px}
+.price{font-size:30px;font-weight:800;color:var(--green-d)}
+.ship{display:flex;gap:12px;align-items:flex-start;font-size:13.5px;color:var(--ink-l);padding:10px 0}
+.ship .d{flex:0 0 9px;height:9px;border-radius:50%;background:var(--green);margin-top:7px}
+.ship.next .d{background:var(--accent)}
+.disc{font-size:11.5px;color:var(--ink-l);background:var(--cream-d);border-radius:12px;padding:14px 16px;margin-top:22px;line-height:1.75}
+.disc b{color:var(--ink)}
+
+/* 실제 교재 스타일 헤더 */
+.studybar{position:absolute;top:16px;right:42px;display:flex;gap:16px;font-size:11px;color:#a89f8d;letter-spacing:.02em}
+.studybar b{color:#8d8371;font-weight:700}
+.studybar .ln{border-bottom:1px solid #d8cfbc;min-width:26px;display:inline-block}
+.abil{display:inline-block;color:#fff;font-size:10.5px;font-weight:800;border-radius:100px;padding:3px 11px;margin-left:5px;letter-spacing:.04em;vertical-align:2px}
+/* 낭말상자 */
+.ws-words{display:flex;flex-wrap:wrap;gap:8px;background:#fff;border:1.5px solid var(--line);border-radius:12px;padding:12px 15px;margin-bottom:14px}
+.ws-word{font-size:14px;font-weight:700;color:var(--ink);padding:2px 8px}
+.ws-word.hit{color:var(--green);text-decoration:line-through}
+.ws-grid{display:grid;grid-template-columns:repeat(9,1fr);gap:4px;max-width:470px;margin:0 auto}
+.ws-cell{aspect-ratio:1;background:#fff;border:1.5px solid var(--line);border-radius:8px;font-size:16px;font-weight:600;color:var(--ink);display:flex;align-items:center;justify-content:center;transition:.12s}
+.ws-cell.sel{background:var(--green-l);border-color:var(--green-m)}
+.ws-cell.fnd{background:var(--green);border-color:var(--green);color:#fff}
+/* 짝꿍도형 */
+.pair-wrap{position:relative;display:flex;justify-content:space-between;max-width:560px;margin:0 auto;gap:60px}
+.pair-col{display:flex;flex-direction:column;gap:16px;flex:1}
+.pair-card{background:#fff;border:2px solid var(--line);border-radius:13px;padding:10px;display:flex;justify-content:center;cursor:pointer;transition:.15s}
+.pair-card:hover{border-color:var(--green-m)}
+.pair-card.sel{border-color:var(--accent);box-shadow:0 0 0 3px rgba(201,121,63,.18)}
+.pair-card.done{border-color:var(--green);background:var(--green-l);cursor:default}
+.pair-lines{position:absolute;inset:0;pointer-events:none}
+/* 달력 */
+.cal{background:#fff;border:1.5px solid var(--line);border-radius:14px;padding:18px 16px;max-width:560px;margin:0 auto}
+.cal-head{display:grid;grid-template-columns:repeat(7,1fr);gap:5px;margin-bottom:6px}
+.cal-head span{text-align:center;font-size:12px;font-weight:800;color:var(--ink-l);padding:4px 0}
+.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:5px}
+.cal-cell{aspect-ratio:1;border:1.5px solid var(--cream-d);border-radius:9px;font-size:14px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;color:var(--ink);background:var(--paper);transition:.12s}
+.cal-cell:hover{border-color:var(--green-m)}
+.cal-cell.blankd{border:none;background:none;cursor:default}
+.cal-cell.today-hit{background:var(--green);border-color:var(--green);color:#fff;font-weight:800}
+.cal-cell .mk{font-size:10px}
+/* 필사 */
+.poem{background:linear-gradient(150deg,#fdf3f2,#fff);border:1.5px solid #eccfcb;border-radius:14px;padding:20px 24px;margin-bottom:16px}
+.poem .pt{font-size:19px;font-weight:800;color:#b0523f;margin-bottom:2px}
+.poem .pa{font-size:12px;color:var(--ink-l);margin-bottom:12px}
+.poem .pl{font-size:15.5px;line-height:2}
+.copyline{margin-bottom:12px}
+.copyline .src{font-size:14.5px;color:var(--ink-l);margin-bottom:3px}
+.copyline input{width:100%;border:none;border-bottom:1.8px dashed var(--line);background:none;padding:7px 2px;font-size:16px;border-radius:0}
+.copyline input:focus{border-bottom-color:var(--green);background:none}
+/* media moved to consolidated block at end */
+</style>
+<div class="topbar"><div class="topbar-in">
+  <div class="brand"><span class="mark">기억윤슬</span><span class="sub">생애사 기반 초개인화 인지 케어</span></div>
+  <div class="steps">
+    <button class="step on" data-go="0">시작</button>
+    <button class="step" data-go="1">1 · 가족 입력</button>
+    <button class="step" data-go="2">2 · AI 생성</button>
+    <button class="step" data-go="3">3 · 인지북</button>
+    <button class="step" data-go="4">4 · 구독·배송</button>
+  </div>
+</div></div>
+
+<div class="shell">
+
+<!-- ============ 0. INTRO ============ -->
+<section class="scene on" id="s0">
+  <div class="hero">
+    <div class="eyebrow">S A M P L E &nbsp; D E M O</div>
+    <h1>기억윤슬</h1>
+    <p class="tag">추억을 기록하고 가족을 연결하는 인지 케어 서비스</p>
+    <p class="desc">세상에는 수많은 인지북이 있지만, 한 사람의 삶을 담은 인지북은 없었습니다.<br>
+    가족이 사진 한 장과 몇 가지 이야기를 입력하면 — 그 어르신만을 위한 인지북이 만들어집니다.</p>
+    <button class="cta" data-go="1">직접 만들어 보기 &nbsp;→</button>
+    <div class="flow3">
+      <div class="c"><div class="n">STEP 01</div><h4>가족이 입력</h4><p>이름 · 고향 · 좋아하는 것 · 사진 몇 장이면 충분합니다. .</p></div>
+      <div class="c"><div class="n">STEP 02</div><h4>AI가 생성</h4><p>생애사를 6가지 인지훈련 콘텐츠로 재구성하고, 난이도를 자동 조절합니다.</p></div>
+      <div class="c"><div class="n">STEP 03</div><h4>매달 실물 배송</h4><p>선물 포장된 한 권이 어르신 덱으로. 다음 달엔 다음 이야기가 이어집니다.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 1. INPUT ============ -->
+<section class="scene" id="s1">
+  <div class="sec-head">
+    <div class="kicker">S T E P &nbsp; 0 1</div>
+    <h2>가족이 기억을 입력합니다</h2>
+    <p>아래 값을 바꾸면 다음 단계에서 만들어지는 인지북 내용이 실제로 함께 바뀝니다.</p>
+  </div>
+  <div class="form-wrap">
+    <div class="fgroup row2">
+      <div><label>어르신 성함</label><input type="text" id="f-name" value="김영자"></div>
+      <div><label>출생 연도 <span class="hint">난이도 자동 조절에 사용</span></label><input type="number" id="f-year" value="1942" min="1920" max="1970"></div>
+    </div>
+    <div class="fgroup row2">
+      <div><label>고향 · 오래 사신 곳</label>
+        <select id="f-city">
+          <option>인천</option><option>서울</option><option>부산</option>
+          <option>전주</option><option>제주</option><option>강릉</option><option>공주</option>
+        </select></div>
+      <div><label>인지 상태 <span class="hint">난이도 단계</span></label>
+        <select id="f-level">
+          <option value="1">기억력이 조금 흐리신 편</option>
+          <option value="2" selected>경도 인지 저하 (진단 받으심)</option>
+          <option value="3">대화는 되시지만 최근 일을 자주 잊으심</option>
+        </select></div>
+    </div>
+    <div class="fgroup row2">
+      <div><label>함께 지낸 반려동물 이름</label><input type="text" id="f-pet" value="보리"></div>
+      <div><label>손주 이름 <span class="hint">회상 문항에 등장</span></label><input type="text" id="f-grand" value="지수"></div>
+    </div>
+    <div class="fgroup">
+      <label>어르신이 좋아하시는 것 <span class="hint">복수 선택</span></label>
+      <div class="chips" id="f-likes">
+        <button class="chip on" data-v="산책">산책</button>
+        <button class="chip on" data-v="트로트">트로트</button>
+        <button class="chip on" data-v="손녀">손녀</button>
+        <button class="chip on" data-v="바다">바다</button>
+        <button class="chip" data-v="시장">시장 구경</button>
+        <button class="chip" data-v="꽃">꽃 가꾸기</button>
+        <button class="chip" data-v="국수">칼국수</button>
+        <button class="chip" data-v="드라마">드라마</button>
+      </div>
+    </div>
+    <div class="fgroup">
+      <label>가족이 전하고 싶은 한마디 <span class="hint">책 마지막 장에 인쇄됩니다</span></label>
+      <textarea id="f-msg">엄마, 엄마가 들려준 이야기를 하나도 잊고 싶지 않아서 책으로 만들었어요. 천천히 한 장씩 넘겨 보세요.</textarea>
+    </div>
+    <div class="fgroup">
+      <label>사진 업로드 <span class="hint">최대 3장 · 표지와 회상 페이지에 실제로 들어갑니다</span></label>
+      <input type="file" id="f-photos" accept="image/*" multiple hidden>
+      <div id="drop" style="border:1.8px dashed var(--line);border-radius:13px;padding:24px;text-align:center;color:var(--ink-l);font-size:13.5px;background:var(--paper);cursor:pointer;transition:.15s">
+        📷 &nbsp;여기를 눌러 가족 사진을 올려 주세요 &nbsp;<span style="color:var(--green);font-weight:700">(끌어다 놓기도 됩니다)</span>
+      </div>
+      <div id="photo-previews" style="display:flex;gap:10px;flex-wrap:wrap;margin-top:10px"></div>
+    </div>
+    <div class="form-foot">
+      <div class="note">입력 정보는 이 브라우저 안에서만 사용되며 어디에도 전송되지 않습니다.</div>
+      <button class="cta sm" id="btn-generate">인지북 만들기 &nbsp;→</button>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 2. GENERATING ============ -->
+<section class="scene" id="s2">
+  <div class="gen">
+    <h3>당신만의 이야기를 만들고 있어요</h3>
+    <p class="who" id="gen-who">— 님의 3권을 생성하는 중입니다</p>
+    <div class="bar"><i id="gen-bar"></i></div>
+    <div class="pct" id="gen-pct">0%</div>
+    <div class="loglist" id="gen-log"></div>
+    <button class="cta" id="btn-openbook" style="display:none;margin-top:30px">완성된 인지북 열어 보기 &nbsp;→</button>
+  </div>
+</section>
+
+<!-- ============ 3. BOOK ============ -->
+<section class="scene" id="s3">
+  <div class="sec-head" style="padding-bottom:12px">
+    <div class="kicker">S T E P &nbsp; 0 3</div>
+    <h2>이번 달 인지북 미리보기</h2>
+    <p>실제로 색칠하고, 답을 적고, 문제를 풀 수 있습니다. 화살표로 넘겨 보세요.</p>
+  </div>
+  <div class="bookbar">
+    <button class="navbtn" id="prev">←</button>
+    <div class="title"><b id="book-title">기억윤슬</b> &nbsp;·&nbsp; <span id="page-label"></span></div>
+    <button c
