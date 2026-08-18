@@ -14,7 +14,7 @@ Promise.all(parts.map(p => fetch(p).then(r => {
   return r.text();
 }))).then(chunks => {
   document.open();
-  document.write(chunks.join(""));
+  document.write(chunks.join("") + '<script src="cover-boot.js"><\/script>');
   document.close();
 }).catch(err => {
   document.body.innerHTML = "<p style=\"font-family:sans-serif;padding:24px\">데모를 불러오지 못했습니다. 파일을 직접 열어 주세요.</p>";
