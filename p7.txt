@@ -1,0 +1,268 @@
+ (${stars||0}/5)
+■ 좋았던 활동: ${liked}
+■ 하고 싶은 말씀:
+${text}
+
+— 기억윤슬 샘플 데모에서 자동 작성된 메일입니다.
+받는 분: ${S.name} 어르신 (${S.city}) · 3권 「${CITY[S.city].sea}의 기억」`;
+    const href = `mailto:${TO}?subject=${encodeURIComponent(subjectRaw)}&body=${encodeURIComponent(bodyRaw)}`;
+
+    /* 1) 메일 앱 열기 (a 태그 방식 — 모바일·PC 모두 안정적) */
+    const a = document.createElement('a');
+    a.href = href; a.style.display='none';
+    document.body.appendChild(a); a.click();
+    setTimeout(()=>a.remove(), 1000);
+
+    /* 2) 메일 앱이 없는 기기 대비 — 내용 자동 복사 */
+    const full = `받는 사람: ${TO}\n제목: ${subjectRaw}\n\n${bodyRaw}`;
+    const copy = (t)=>{
+      if(navigator.clipboard && window.isSecureContext) return navigator.clipboard.writeText(t);
+      return new Promise((res,rej)=>{
+        const ta=document.createElement('textarea');
+        ta.value=t; ta.setAttribute('readonly',''); ta.style.position='fixed'; ta.style.top='-1000px';
+        document.body.appendChild(ta); ta.select();
+        try{ document.execCommand('copy'); res(); }catch(e){ rej(e); }finally{ ta.remove(); }
+      });
+    };
+    const note = $('#fb-note');
+    copy(full).then(()=>{
+      note.innerHTML = `메일 앱이 열렸어요. <b>전송</b>만 누르시면 접수됩니다.<br>메일 앱이 열리지 않으면 — 내용이 <b>복사</b>되어 있으니 카카오톡이나 문자에 붙여넣어 <b>${TO}</b> 로 보내 주세요.`;
+      note.style.color = 'var(--green-d)';
+    }).catch(()=>{
+      note.innerHTML = `메일 앱이 열렸어요. 열리지 않으면 <b>${TO}</b> 로 보내 주세요.`;
+      note.style.color = 'var(--green-d)';
+    });
+    $('#fb-copy') && ($('#fb-copy').style.display='inline-flex');
+  });
+}
+
+/* ---------- 데모용 QR 패턴 ---------- */
+function drawQR(svg){
+  if(!svg) return;
+  let cells='';
+  const finder=(x,y)=>`<rect x="${x}" y="${y}" width="7" height="7" fill="#2b2924"/><rect x="${x+1}" y="${y+1}" width="5" height="5" fill="#fff"/><rect x="${x+2}" y="${y+2}" width="3" height="3" fill="#2b2924"/>`;
+  for(let y=0;y<33;y++)for(let x=0;x<33;x++){
+    if((x<9&&y<9)||(x>23&&y<9)||(x<9&&y>23)) continue;
+    if(Math.abs(Math.sin(x*13.7+y*7.3+x*y*.31))>.52) cells+=`<rect x="${x}" y="${y}" width="1" height="1" fill="#2b2924"/>`;
+  }
+  svg.innerHTML = finder(0,0)+finder(26,0)+finder(0,26)+cells;
+}
+</script>
+<style>
+/* =========================================================
+   가을 숲 · 단풍 테마  (Autumn Forest Overlay)
+   - 70대 어르신 가독성 기준: 본문 17~18px, 대비 강화
+   ========================================================= */
+:root{
+  /* 숲 */
+  --green:#4f7a4a; --green-d:#2f5637; --green-m:#7d9c6b; --green-l:#eaf1e2;
+  /* 단풍 */
+  --maple:#c9502f; --maple-l:#f6ddd0;
+  --amber:#d9822b; --amber-l:#fbe7cd;
+  --gold:#e5a92b; --gold-l:#fbeecb;
+  --bark:#8a6440; --bark-d:#6b4c30;
+  /* 종이 */
+  --cream:#fdf6e7; --cream-d:#f4e7cf; --paper:#fffdf6;
+  --ink:#33291f; --ink-l:#6d5f4d; --line:#e0cfae;
+  --accent:#d9822b; --peach:#f8e2cf; --butter:#fbeecb; --rose:#f6ddd2;
+  --serif:'Gowun Batang','Nanum Myeongjo',Batang,serif;
+}
+
+/* ---------- 배경: 숲 그늘 + 노을 ---------- */
+body{
+  font-size:17px; line-height:1.8; color:var(--ink);
+  background:
+    radial-gradient(1100px 620px at -10% -12%, rgba(217,130,43,.20), transparent 62%),
+    radial-gradient(900px 600px at 110% -4%, rgba(201,80,47,.16), transparent 60%),
+    radial-gradient(900px 620px at 50% 112%, rgba(79,122,74,.18), transparent 62%),
+    linear-gradient(180deg,#fdf7ea 0%, #fbf1de 55%, #f7ecd8 100%);
+  background-attachment:fixed;
+}
+/* 은은하게 흩날리는 낙엽 (배경 레이어) */
+body::before{
+  content:'';position:fixed;inset:-10% -10% -10% -10%;z-index:0;pointer-events:none;opacity:.55;
+  background-image:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="460" height="460"><g opacity="0.42"><path d="M50 70c12-9 26-5 31 5-10 10-24 10-31-5z" fill="%23d9822b"/><path d="M330 46c8 10 7 22-3 27-9-9-9-20 3-27z" fill="%23c9502f"/><path d="M200 224c13-5 25 2 27 12-12 7-25 3-27-12z" fill="%23e5a92b"/><path d="M396 274c-10 7-22 3-25-7 10-8 22-5 25 7z" fill="%234f7a4a"/><path d="M104 362c10 9 10 21 2 26-9-7-11-19-2-26z" fill="%23c9502f"/><path d="M276 396c12-7 24-2 26 8-12 7-24 3-26-8z" fill="%23d9822b"/></g></svg>');
+  background-size:460px 460px;
+  animation:leafDrift 110s linear infinite;
+}
+@keyframes leafDrift{ from{background-position:0 0} to{background-position:460px 920px} }
+@media (prefers-reduced-motion:reduce){ body::before{animation:none} }
+.topbar,.shell{position:relative;z-index:1}
+
+/* ---------- 상단바 ---------- */
+.topbar{
+  background:linear-gradient(180deg,rgba(253,246,231,.97),rgba(253,246,231,.88));
+  border-bottom:2px solid #e6d2ad;
+  box-shadow:0 3px 14px rgba(138,100,64,.10);
+}
+.brand .mark{font-size:24px;letter-spacing:.28em;color:var(--green-d)}
+.brand .mark::before{
+  content:'';display:inline-block;width:22px;height:22px;vertical-align:-4px;margin-right:8px;
+  background:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 22c0-5 1-8 5-11" stroke="%238a6440" stroke-width="1.6" fill="none" stroke-linecap="round"/><path d="M20 4c1 7-3 12-9 12-2 0-4-1-4-4 0-5 6-8 13-8z" fill="%23c9502f"/><path d="M4 10c4 0 7 2 7 6 0 2-1 3-3 3-3 0-5-3-4-9z" fill="%23e5a92b" opacity=".85"/></svg>') no-repeat center/contain;
+}
+.brand .sub{font-size:12.5px;color:var(--bark-d)}
+.step{
+  font-size:14px;padding:9px 17px;background:#fff;border:1.5px solid #e6d2ad;color:var(--bark-d);font-weight:600
+}
+.step:hover{border-color:var(--amber);color:var(--maple)}
+.step.on{
+  background:linear-gradient(135deg,var(--maple),var(--amber));border-color:transparent;color:#fff;
+  box-shadow:0 4px 12px rgba(201,80,47,.32)
+}
+.step.done{border-color:var(--green-m);color:var(--green-d);background:var(--green-l)}
+
+/* ---------- 히어로: 가을 숲 능선 ---------- */
+.hero{position:relative;padding:66px 0 46px}
+.hero > *{position:relative;z-index:1}
+.hero::before{
+  content:'';position:absolute;left:50%;transform:translateX(-50%);top:0;width:min(1180px,100%);height:100%;z-index:0;
+  background:
+    radial-gradient(420px 220px at 50% 26%, rgba(229,169,43,.20), transparent 70%),
+    url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 260" preserveAspectRatio="none"><circle cx="960" cy="70" r="46" fill="%23e5a92b" opacity=".38"/><path d="M0 210 Q150 140 300 195 T620 180 T900 205 T1200 165 L1200 260 L0 260Z" fill="%234f7a4a" opacity=".16"/><path d="M0 235 Q200 190 420 225 T820 215 T1200 235 L1200 260 L0 260Z" fill="%232f5637" opacity=".14"/><g opacity=".22"><path d="M120 240c0-30 8-52 22-66 14 14 22 36 22 66z" fill="%23c9502f"/><path d="M1040 240c0-26 7-45 19-58 12 13 19 32 19 58z" fill="%23d9822b"/></g></svg>') no-repeat bottom center/100% 240px;
+  -webkit-mask-image:linear-gradient(90deg,transparent 0,#000 14%,#000 86%,transparent 100%);
+  mask-image:linear-gradient(90deg,transparent 0,#000 14%,#000 86%,transparent 100%);
+}
+.hero .eyebrow{color:var(--maple);font-weight:700;font-size:14px}
+.hero h1{
+  font-size:58px;letter-spacing:.2em;font-weight:700;
+  background:linear-gradient(115deg,#2f5637 0%, #4f7a4a 30%, #d9822b 68%, #c9502f 100%);
+  -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;
+  filter:drop-shadow(0 2px 0 rgba(255,255,255,.6))
+}
+.hero .tag{font-family:var(--serif);font-size:21px;color:var(--bark-d)}
+.hero .desc{font-size:17px;color:var(--ink-l);line-height:2}
+.hero::after{
+  width:200px;height:18px;
+  background:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="200" height="18"><path d="M6 10 q22 -8 44 0 t44 0 t44 0 t44 0" fill="none" stroke="%23d9822b" stroke-width="2" stroke-linecap="round" opacity=".6"/><path d="M96 3c4 4 4 9 0 12-4-3-4-8 0-12z" fill="%23c9502f" opacity=".8"/><circle cx="40" cy="4" r="2" fill="%23e5a92b"/><circle cx="158" cy="4" r="2" fill="%234f7a4a"/></svg>') no-repeat center
+}
+
+/* ---------- 3단계 카드: 단풍색 띠 ---------- */
+.flow3 .c{
+  position:relative;overflow:hidden;background:#fffdf6;border:1.5px solid #ecdcbd;
+  padding:26px 20px 22px;box-shadow:0 8px 22px rgba(138,100,64,.10)
+}
+.flow3 .c::before{content:'';position:absolute;left:0;right:0;top:0;height:6px}
+.flow3 .c:nth-child(1)::before{background:linear-gradient(90deg,var(--maple),#e07a4e)}
+.flow3 .c:nth-child(2)::before{background:linear-gradient(90deg,var(--amber),var(--gold))}
+.flow3 .c:nth-child(3)::before{background:linear-gradient(90deg,var(--green),var(--green-m))}
+.flow3 .c:hover{transform:translateY(-6px);box-shadow:0 18px 34px rgba(138,100,64,.18)}
+.flow3 .n{font-size:12px;letter-spacing:.16em}
+.flow3 .c:nth-child(1) .n{color:var(--maple)}
+.flow3 .c:nth-child(2) .n{color:#b8791b}
+.flow3 .c:nth-child(3) .n{color:var(--green)}
+.flow3 h4{font-size:19px;color:var(--green-d);font-family:var(--serif)}
+.flow3 p{font-size:15px;color:var(--ink-l);line-height:1.85}
+
+/* ---------- 버튼 ---------- */
+.cta{
+  font-size:19px;padding:17px 40px;font-weight:700;letter-spacing:.02em;
+  background:linear-gradient(135deg,#d9822b,#c9502f);
+  box-shadow:0 10px 24px rgba(201,80,47,.30)
+}
+.cta:hover{background:linear-gradient(135deg,#c9502f,#a83f24);transform:translateY(-2px)}
+.cta.ghost{background:#fff;color:var(--green-d);border:2px solid var(--green-m);box-shadow:0 4px 12px rgba(79,122,74,.14)}
+.cta.ghost:hover{background:var(--green-l);color:var(--green-d)}
+.cta.sm{font-size:16px;padding:13px 26px}
+
+/* ---------- 섹션 헤더 ---------- */
+.sec-head .kicker{color:var(--maple);font-size:13px;font-weight:700}
+.sec-head h2{font-size:34px;color:var(--green-d);font-family:var(--serif)}
+.sec-head p{font-size:16px;color:var(--ink-l)}
+.sec-head h2::after{
+  content:'';display:block;width:74px;height:8px;margin:14px auto 0;border-radius:100px;
+  background:linear-gradient(90deg,var(--maple),var(--amber),var(--gold))
+}
+
+/* ---------- 입력 폼 ---------- */
+.form-wrap{background:#fffdf6;border:1.5px solid #ecdcbd;box-shadow:0 16px 40px rgba(138,100,64,.13)}
+.fgroup > label{font-size:16px;color:var(--green-d)}
+.fgroup .hint{font-size:13px;color:var(--bark)}
+input[type=text],input[type=number],select,textarea{
+  font-size:17px;padding:14px 16px;border:2px solid #e6d2ad;background:#fffdf6;color:var(--ink)
+}
+input:focus,select:focus,textarea:focus{border-color:var(--amber);box-shadow:0 0 0 4px rgba(217,130,43,.16)}
+.chip{font-size:16px;padding:11px 20px;border:2px solid #e6d2ad;color:var(--bark-d);background:#fffdf6}
+.chip:hover{border-color:var(--amber);color:var(--maple)}
+.chip.on{background:linear-gradient(135deg,var(--green),#63915b);border-color:transparent;color:#fff;box-shadow:0 4px 12px rgba(79,122,74,.28)}
+#drop{border:2.5px dashed var(--amber)!important;background:linear-gradient(160deg,#fdf1dd,#fffdf6)!important;font-size:15.5px!important;color:var(--bark-d)!important}
+.form-foot .note{font-size:13.5px;color:var(--bark)}
+
+/* ---------- 생성 화면 ---------- */
+.gen h3{font-size:28px;color:var(--green-d)}
+.gen .who{font-size:16px;color:var(--bark-d)}
+.bar{height:14px;background:#f0e2c6;border:1px solid #e6d2ad}
+.bar i{background:linear-gradient(90deg,var(--gold),var(--amber) 55%,var(--maple))}
+.pct{font-size:15px;color:var(--maple)}
+.loglist{background:#fffdf6;border:1.5px solid #ecdcbd;box-shadow:0 8px 22px rgba(138,100,64,.09)}
+.logitem{font-size:15.5px;color:#c9bda6}
+.logitem.on{color:var(--ink)}
+.logitem .tick{border-color:#dfcfae}
+.logitem.on .tick{background:linear-gradient(135deg,var(--green),var(--green-m));border-color:transparent}
+
+/* ---------- 책 페이지 ---------- */
+.bookbar .title{font-size:16px}
+.navbtn{width:50px;height:50px;font-size:20px;border:2px solid #e6d2ad;color:var(--maple);background:#fff}
+.navbtn:hover{background:linear-gradient(135deg,var(--amber),var(--maple));border-color:transparent;color:#fff}
+.dot{background:#e2d2b4}
+.dots .dot.on{background:linear-gradient(90deg,var(--maple),var(--amber))}
+
+.page{
+  border:1.5px solid #e4d2b2;
+  box-shadow:0 4px 0 #f2e4c9, 0 26px 56px rgba(138,100,64,.18);
+  background:
+    url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="300" height="300"><g opacity="0.06"><path d="M250 40c-6 26-26 40-46 34-4-18 16-38 46-34z" fill="%23c9502f"/><path d="M40 250c22-4 38 8 38 26-18 6-38-8-38-26z" fill="%234f7a4a"/><path d="M150 130c10 10 10 24 0 32-10-8-10-22 0-32z" fill="%23d9822b"/></g></svg>') no-repeat 0 0/300px 300px,
+    radial-gradient(circle at 1px 1px, rgba(138,100,64,.06) 1px, transparent 1.7px) 0 0/24px 24px,
+    linear-gradient(180deg,#fffdf4 0%, #fdf6e9 60%, #fbf1e0 100%);
+  font-size:17px;padding-top:56px;
+}
+.page::before{
+  content:'';position:absolute;left:0;right:0;top:0;width:auto;height:11px;
+  background:linear-gradient(90deg,#c9502f 0%,#d9822b 34%,#e5a92b 62%,#7d9c6b 100%);
+}
+.page::after{border:2px dashed #e6cfa6;border-radius:12px;inset:20px 12px 12px}
+.page h3{font-size:31px;color:var(--green-d)}
+.page h3::after{content:' 🍁';font-size:19px;vertical-align:2px}
+.page .lead{font-size:16px;color:var(--ink-l)}
+.psub{font-size:13px;color:var(--bark)}
+.daynum{color:rgba(201,80,47,.22);font-size:80px}
+.daynum span{color:rgba(217,130,43,.85);font-size:13px}
+.ptag{font-size:13px;padding:7px 16px;background:linear-gradient(135deg,var(--gold-l),var(--amber-l));border:1.5px solid #ecd39b;color:#96601a}
+.ptag .num{background:linear-gradient(135deg,var(--maple),var(--amber));width:20px;height:20px;font-size:11.5px}
+.pfoot{font-size:12px;color:var(--bark);border-top:1.5px dashed #e6cfa6}
+.pfoot::before{content:'🍂';margin-right:6px;filter:saturate(.9)}
+.studybar{font-size:12.5px;color:var(--bark)}
+.studybar b{color:var(--bark-d)}
+.studybar .ln{border-bottom:1.5px solid #d9c39b}
+
+/* 문항 카드 */
+.qcard{background:#fffdf6;border:1.5px solid #ecdcbd;padding:20px 22px}
+.qcard .q{font-size:17.5px;color:var(--ink)}
+.qcard .q .n{background:linear-gradient(135deg,var(--maple),var(--amber));width:26px;height:26px;font-size:13px}
+.optlist{padding-left:35px}
+.opt{font-size:16px;padding:11px 19px;border:2px solid #e6d2ad;color:var(--bark-d);background:#fffdf6}
+.opt:hover{border-color:var(--amber);color:var(--maple)}
+.opt.on{background:var(--green-l);border-color:var(--green);color:var(--green-d)}
+.writeline{border-bottom:2px dashed #dcc79f;margin-left:35px}
+.writeline input{font-size:17px}
+
+/* 언어 · 낱말 */
+.cho{background:#fffdf6;border:1.5px solid #ecdcbd}
+.cho .k{font-size:28px;color:var(--maple)}
+.cho .h{font-size:13.5px;color:var(--bark)}
+.cho.right{border-color:var(--green);background:var(--green-l)}
+.cho .ok{color:var(--green-d)}
+.blank-sent{font-size:19px;background:#fffdf6;border:1.5px solid #ecdcbd}
+.blank{border-bottom:3px solid var(--amber);color:var(--maple);min-width:92px}
+.word{font-size:16px;padding:9px 19px;border:2px solid #e6d2ad;background:#fff}
+.word:hover{border-color:var(--amber);color:var(--maple)}
+.ws-words{background:#fffdf6;border:1.5px solid #ecdcbd}
+.ws-word{font-size:16px}
+.ws-word.hit{color:var(--maple)}
+.ws-cell{font-size:18px;border:1.5px solid #e6d2ad;background:#fffdf6;color:var(--ink)}
+.ws-cell.sel{background:var(--gold-l);border-color:var(--gold)}
+.ws-cell.fnd{background:linear-gradient(135deg,var(--green),#63915b);border-color:transparent;color:#fff}
+
+/* 기억 · 주의 */
+.icard{background:#fffdf6;border:2px solid #ecdcbd}
+.icard .nm{font-size:14px;color:var(--bark-d)}
+.icar
