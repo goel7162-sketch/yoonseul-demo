@@ -1,5 +1,5 @@
 (function(){
-  var n = 8;
+  var n = 7;
   var files = [];
   for (var i=1;i<=n;i++) files.push('cover-b64-'+i+'.txt');
   Promise.all(files.map(function(f){ return fetch(f,{cache:'no-store'}).then(function(r){ if(!r.ok) throw new Error(f+' '+r.status); return r.text(); }); }))
