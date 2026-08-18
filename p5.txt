@@ -1,0 +1,245 @@
+요?</div>
+      <div class="optlist">
+        ${(S.likes.includes('트로트')?['찔레꽃','목포의 눈물','동백 아가씨','유정천리']:['고향의 봄','아침이슬','섬집 아기','바위섬']).map(s=>`<button class="opt">${s}</button>`).join('')}
+        <button class="opt">다른 노래</button>
+      </div>
+      <div class="writeline"><input type="text" placeholder="노래 제목을 적거나, 지금 한 소절 불러 보세요"></div>
+    </div>
+    <div style="margin-top:14px;background:var(--cream-d);border-radius:12px;padding:13px 16px;font-size:13px;color:var(--ink-l)">
+      🎵 실제 배송판에는 <b style="color:var(--ink)">애창곡 QR</b>이 인쇄됩니다 — 휴대폰을 비추면 노래가 흘러나오고, 가족이 함께 부른 녹음도 담을 수 있어요.
+    </div>
+    ${why('노래로 여는 기억의 문',
+      `놀랍게도 <b>노래에 대한 기억은 치매가 상당히 진행된 뒤에도 오래 살아남습니다.</b> 말은 잊어도 젊은 시절 애창곡은 끝까지 따라 부르시는 어르신이 많은 이유입니다. 익숙한 노래는 기분을 밝게 하고, 가사 채우기는 언어 회상을, 함께 부르기는 호흡·발성과 가족 교감을 함께 자극합니다. ${S.likes.includes('트로트')?`${S.name} 님이 좋아하시는 트로트로 구성한 것도 그래서입니다.`:''}`,
+      `음악 기억의 보존 — 초기 치매 어르신 대상 무작위 연구에서 정기적 노래 부르기가 기분·지남력·기억 지표를 개선했다는 결과가 있습니다(Särkämö 외 2014). 음악 기반 중재는 우울 완화에 대한 근거가 축적되어 있으며(Cochrane 리뷰), 정서가 실린 자극일수록 기억에 강하게 남는 정서 기억 원리와 맞닿아 있습니다.`)}
+  `},
+
+  /* ---- 7 언어 ---- */
+  {label:'8 · 언어능력 훈련', tag:['08','언어능력 훈련','어휘 회상 · 문장 구성',['언어력','기억력']], html:`
+    <h3>말놀이 한 마당</h3>
+    <p class="lead">첫소리를 보고 단어를 맞혀 보세요. ${S.name} 님이 좋아하시는 것들이에요.</p>
+    <div class="cho-grid">
+      ${likes.slice(0,4).map(w=>`
+        <div class="cho" data-ans="${w}">
+          <div class="k">${CHO(w)}</div>
+          <div class="h">힌트: ${({'산책':'매일 '+(S.pet||'강아지')+'와 함께 하는 것','트로트':'흥이 나는 노래','손녀':S.grand+' — 눈에 넣어도 안 아픈','바다':c.sea+'에서 보던 것','시장':c.market+'에 가면','꽃':'봄에 피는 예쁜 것','국수':'따끈한 면 요리','드라마':'저녁마다 보는 것'})[w]||w}</div>
+          <input type="text" placeholder="정답 쓰기"><div class="ok">참 잘하셨어요! 정답이에요 🎉</div>
+        </div>`).join('')}
+    </div>
+    <div style="height:18px"></div>
+    <div class="blank-sent" id="prov"></div>
+    <div class="wordbank" id="bank"></div>
+    ${why('첫소리 힌트로 단어 꺼내기',
+      `"그거 있잖아, 그거…" 하고 단어가 혀끝에서 맴도는 <b>이름대기 어려움</b>은 인지 저하 초기에 흔합니다. 첫소리(ㅅㅊ→산책) 힌트는 단어를 통째로 알려주지 않으면서 <b>스스로 인출하는 데 성공하는 경험</b>을 만들어 줍니다. 정답이 전부 본인이 좋아하는 것들이라 실패해도 힌트만으로 대화가 이어지고, 속담 채우기는 오래 저장된 <b>장기 언어 기억</b>을 깨워 자신감을 줍니다.`,
+      `인출 연습 효과(Retrieval Practice) — 정보를 스스로 꺼내는 연습이 단순히 다시 보는 것보다 기억 유지에 효과적이라는 인지심리학의 확립된 원리. 속담·노래 가사처럼 과잉학습된 지식은 인지 저하에서도 잘 보존되어 성공 경험의 원천이 됩니다.`)}
+  `},
+
+  /* ---- 9 낱말상자 ---- */
+  {label:'9 · 낱말상자', tag:['09','낱말상자','시각 탐색 · 어휘 재인',['기억력','언어력']], html:`
+    <h3>낱말상자</h3>
+    <p class="lead">${S.name} 님의 소중한 이름들이 상자 속에 숨어 있어요. 글자를 눌러 낱말을 찾아 주세요.<br><span style="font-size:12.5px">낱말의 글자를 순서대로 모두 누르면 찾은 것으로 표시됩니다. (가로 또는 세로)</span></p>
+    <div class="ws-words" id="ws-words"></div>
+    <div class="ws-grid" id="ws-grid"></div>
+    <div class="scoreline" style="justify-content:center"><span class="pill" id="ws-score">0 / 0</span><span id="ws-msg"></span></div>
+    ${why('내 이름들이 숨어 있는 글자판',
+      `일반 교재의 낱말상자에는 꽃 이름, 과일 이름이 들어갑니다. 기억윤슬의 낱말상자에는 <b>${S.pet}, ${S.grand}, ${c.sea}</b> — 그분 인생의 낱말이 들어갑니다. 무수한 글자 속에서 목표 낱말을 찾는 것은 시각 탐색과 주의 훈련이지만, 찾는 낱말이 <b>내가 사랑하는 이름</b>일 때 찾는 기쁨이 완전히 달라집니다. "찾았다, 우리 ${S.grand}!" — 이 한 마디가 활동을 계속하게 만듭니다.`,
+      `자기참조효과의 재적용 — 자기와 관련된 자극은 탐색 과제에서도 더 빨리 발견됩니다(자기 이름의 칵테일파티 효과). 정서적으로 의미 있는 자극은 주의를 우선적으로 붙잡습니다.`)}
+  `},
+
+  /* ---- 10 찬송가 따라 쓰기 ---- */
+  {label:'10 · 찬송가 따라 쓰기', tag:['10','찬송가 따라 쓰기','찬양 · 낭송 · 손글씨',['언어력','정서']], html:`
+    <h3>함께 부르고, 따라 써 보세요</h3>
+    <p class="lead">평생 부르셨던 찬송입니다. 한 절 소리 내어 부르신 뒤, 한 줄씩 따라 적어 보세요.</p>
+    <div class="poem hymn">
+      <div class="hymn-no">가족이 고른 찬송 · <b>찬미예수 66장</b></div>
+      <div class="pt">오 주여 나의 마음이</div>
+      <div class="pa">시편 57편 7~8절 말씀에 곡을 붙인 찬양</div>
+      <div class="pl"><span class="ln">오 주여 나의 마음이 주께로 정해졌으니</span><span class="ln">내가 노래하고 내가 찬송하리이다</span><span class="ln gap">내 영광아 깰지어다 비파야 수금아 깰지어다</span><span class="ln">내가 새벽을 깨우리로다</span></div>
+      <div class="hymn-src">시편 57편 7~8절 · 개역개정</div>
+      <div class="hymn-amen">아 멘</div>
+    </div>
+    <div id="copy-area">
+      ${['오 주여 나의 마음이 주께로 정해졌으니','내가 노래하고 내가 찬송하리이다','내가 새벽을 깨우리로다'].map((l,i)=>`
+      <div class="copyline"><div class="src">${l}</div><input type="text" placeholder="따라 적어 보세요" data-src="${i}"></div>`).join('')}
+    </div>
+    <div class="hymn-note">🎵 실물 책에는 어르신이 평생 부르신 찬송 중 <b>가족이 고른 곡</b>이 실립니다. 신앙이 없으신 분께는 애창곡이나 학창 시절 시로 대체됩니다.<br><span class="cr">인쇄 안내 — 「오 주여 나의 마음이」는 복음성가(찬미예수 66장)라 실물 인쇄 시 저작권자 허락(CCLI 등)이 필요합니다. 「내 주를 가까이 하게 함은」·「예수 사랑하심은」·「저 높은 곳을 향하여」·「주 안에 있는 나에게」 같은 고전 찬송가는 저작권이 만료되어 자유롭게 실을 수 있습니다.</span></div>
+    ${why('입에 남아 있는 찬송, 마음에 남아 있는 시간',
+      `평생 부르신 찬송은 가사와 가락, 그 시절 예배당의 공기까지 한 덩어리로 묶여 있습니다. 그래서 최근 일을 잊으신 뒤에도 <b>첫 소절만 들려드리면 끝까지 따라 부르시는</b> 경우가 많습니다. 소리 내어 부르면 호흡·발성·리듬이 함께 움직이고, 이어서 한 줄씩 따라 쓰면 손끝의 소근육과 글자 배열 능력이 더해집니다 — 한 페이지로 <b>이중 과제</b>가 되는 셈이에요. 무엇보다 익숙한 찬송 한 절은 어르신에게 <b>편안함과 위로</b>가 됩니다.`,
+      `음악 기억은 다른 기억보다 오래 보존되는 편이며, 익숙한 노래는 관련된 자서전적 기억을 함께 떠올리게 합니다(음악 유발 자서전적 기억). 낭독 효과(production effect)로 소리 내어 읽은 내용은 더 잘 남고, 손글씨는 타이핑보다 기억 부호화에 유리하다는 연구가 있습니다. 종교 활동이 익숙한 분께는 정서적 안정감에도 도움이 된다고 보고됩니다.`)}
+  `},
+
+  /* ---- 6 주의집중 ---- */
+  {label:'11 · 주의집중 훈련', tag:['11','주의집중 훈련','선택적 주의 · 범주 분류',['집중력','판단력']], html:`
+    <h3>${S.pet}의 물건을 찾아 주세요</h3>
+    <p class="lead">아래 12개 그림 중 <b>강아지</b> 그림과 <b>나비</b> 그림만 골라 눌러 보세요.</p>
+    <div class="icon-grid" id="att-grid"></div>
+    <div class="scoreline"><span class="pill" id="att-score">0 / 4</span><span id="att-msg">천천히, 한 줄씩 살펴보세요.</span></div>
+    ${why('많은 것 중에서 목표만 골라내기',
+      `여러 자극 사이에서 목표만 골라내는 <b>선택적 주의</b>는 길 건너기, 약 챙기기 같은 일상 안전과 직결되는 능력입니다. 목표물을 '${S.pet} 관련 그림'으로 정한 것도 의도적입니다 — <b>정서적으로 애착 있는 대상은 주의를 더 오래 붙잡아 두기 때문</b>입니다. 감정이 실린 기억과 대상은 인지 저하에서도 상대적으로 잘 유지됩니다.`,
+      `정서 기억의 보존 — 정서적으로 각성된 사건·대상은 편도체 관여로 더 강하게 부호화되며, 치매에서도 감정적 인상은 사실 기억보다 오래 남는다는 연구들이 있습니다. 좋아하는 것을 훈련 소재로 쓰면 참여 시간과 완수율이 올라갑니다.`)}
+  `},
+
+  /* ---- 12 달력 만들기 ---- */
+  {label:'12 · 달력 만들기', tag:['12','달력 만들기','시간 지남력 · 일정 관리',['지남력']], html:`
+    <h3>이번 달, 나의 달력</h3>
+    <p class="lead">오늘은 몇 월 며칠일까요? 달력에서 <b>오늘 날짜</b>를 찾아 눌러 보세요.</p>
+    <div class="cal">
+      <div style="text-align:center;font-size:16px;font-weight:800;color:var(--green-d);margin-bottom:12px" id="cal-title"></div>
+      <div class="cal-head"><span>월</span><span>화</span><span>수</span><span>목</span><span>금</span><span>토</span><span style="color:#d95f4b">일</span></div>
+      <div class="cal-grid" id="cal-grid"></div>
+      <div style="display:flex;gap:16px;justify-content:center;margin-top:12px;font-size:12px;color:var(--ink-l)">
+        <span>📦 다음 책 배송일</span><span>💐 ${S.grand} 오는 날</span>
+      </div>
+    </div>
+    <div class="scoreline" style="justify-content:center"><span id="cal-msg" style="font-size:14px;color:var(--ink-l)">달력을 천천히 살펴보세요.</span></div>
+    <div class="qcard" style="margin-top:16px">
+      <div class="q"><span class="n">✎</span>이번 달에 꼭 해야 할 일을 적어 보세요</div>
+      <div class="writeline"><input type="text" placeholder="예) ${S.grand} 생일 선물 사기, 병원 가는 날…"></div>
+    </div>
+    ${why('오늘이 며칠인지 아는 힘',
+      `"오늘이 몇 월 며칠, 무슨 요일인지"를 아는 <b>시간 지남력</b>은 인지 건강의 바로미터라서 모든 인지 검사가 첫 질문으로 묻습니다. 매달 새 책이 도착할 때마다 달력을 직접 채우고, 배송일·가족 오는 날 같은 <b>기다려지는 날짜</b>를 표시하는 것은 자연스러운 지남력 연습이 됩니다. 내 손으로 만든 달력은 매일 들여다보게 되니까요.`,
+      `현실 지남력 훈련(Reality Orientation) — 날짜·계절·장소 정보를 반복적으로 일깨우는 접근으로, 현대 인지자극치료(CST)의 뿌리가 된 기법입니다(Spector 외 2003 프로그램에도 지남력 요소 포함). 일정 관리 활동은 일상 기능 유지와 직결됩니다.`)}
+  `},
+
+  /* ---- 13 요즘말 ---- */
+  {label:'13 · 요즘말 배우기', tag:['13','요즘말 배우기','새로운 학습 · 세대 소통',['언어력','세대연결']], html:`
+    <h3>${S.grand}(이)가 알려주는 요즘말</h3>
+    <p class="lead">손주들이 쓰는 말, 하나씩 배워 볼까요? 뜻을 골라 보세요.</p>
+    <div class="qcard odd-set" data-a="제일 잘 나온 사진">
+      <div class="q"><span class="n">1</span>「인생샷」은 무슨 뜻일까요?</div>
+      <div class="optlist">
+        <button class="oddo opt" data-v="제일 잘 나온 사진">여러 장 중 제일 잘 나온 사진</button>
+        <button class="oddo opt" data-v="오래된 사진">오래된 사진</button>
+        <button class="oddo opt" data-v="가족사진">가족사진</button>
+      </div>
+      <div class="odd-fb" style="padding-left:31px;margin-top:8px;font-size:13px;color:var(--ink-l)"></div>
+    </div>
+    <div class="qcard odd-set" data-a="아주 맛있다">
+      <div class="q"><span class="n">2</span>「꿀맛」— ${S.grand}(이)가 "할머니 밥 꿀맛이에요!" 하면?</div>
+      <div class="optlist">
+        <button class="oddo opt" data-v="아주 맛있다">아주 맛있다는 뜻</button>
+        <button class="oddo opt" data-v="달다">설탕을 많이 넣었다는 뜻</button>
+        <button class="oddo opt" data-v="벌꿀 요리">벌꿀로 만든 요리라는 뜻</button>
+      </div>
+      <div class="odd-fb" style="padding-left:31px;margin-top:8px;font-size:13px;color:var(--ink-l)"></div>
+    </div>
+    <div class="qcard">
+      <div class="q"><span class="n">3</span>다음에 ${S.grand}(이)를 만나면 배운 말로 한마디 해 보세요</div>
+      <div class="writeline"><input type="text" placeholder="예) ${S.grand}야, 오늘 사진 인생샷이네!"></div>
+    </div>
+    ${why('새것을 배우는 즐거움, 손주와 통하는 기쁨',
+      `익숙한 것을 회상하는 것 못지않게 <b>새로운 것을 배우는 경험</b>이 뇌에는 신선한 자극입니다. 그리고 이 페이지의 진짜 목적은 따로 있어요 — 다음에 ${S.grand}(이)를 만났을 때 "인생샷이네!" 한마디를 건네는 순간, <b>어르신이 배우는 사람이 아니라 대화를 이끄는 사람</b>이 됩니다. 손주는 깜짝 놀라고, 대화가 이어지고, 관계가 살아납니다.`,
+      `사회적 연결과 치매 위험 — 사회적 고립은 Lancet 치매위원회(2024)가 꼽은 14개 수정 가능 위험요인 중 하나이며, 세대 간 교류 프로그램은 노인의 우울 감소·자존감 향상에 긍정적이라는 연구들이 있습니다. 새로운 학습은 인지예비능을 쌓는 활동의 전형입니다.`)}
+  `},
+
+  /* ---- 7 마지막 장 ---- */
+  {label:'가족의 한마디', tag:null, html:`
+    <div style="padding-top:26px">
+      <h3 style="text-align:center">이번 달, 가족이 보내는 마음</h3>
+      <p class="lead" style="text-align:center">책의 마지막 장에는 언제나 가족의 편지가 실립니다.</p>
+      <div class="msg-card">
+        <div class="quote" id="fam-msg"></div>
+        <div class="from">— 딸 미정, 손녀 ${S.grand} 올림</div>
+      </div>
+      <div class="qr-row">
+        <div class="qr"><svg viewBox="0 0 33 33" id="qr-svg"></svg></div>
+        <div style="font-size:13.5px;color:var(--ink-l);line-height:1.9;max-width:300px">
+          <b style="color:var(--ink)">Memory Film QR</b><br>
+          휴대폰으로 비추면 가족이 녹음한 목소리 편지와<br>지난달 활동 영상이 재생됩니다. <span style="color:var(--green);font-weight:700">(데모)</span>
+        </div>
+      </div>
+      <div class="card" style="margin-top:26px;border-color:var(--green-m)">
+        <h4>📮 사용 후기를 들려주세요</h4>
+        <p style="font-size:13.5px;color:var(--ink-l);margin:0 0 16px">남겨 주신 피드백은 기억윤슬 팀 메일로 전달됩니다. 더 좋은 책을 만드는 데 큰 힘이 됩니다.</p>
+        <div style="margin-bottom:14px">
+          <div style="font-size:13px;font-weight:700;margin-bottom:7px">이번 달 책은 어떠셨나요?</div>
+          <div id="fb-stars" style="font-size:30px;letter-spacing:6px;cursor:pointer;user-select:none;display:inline-block;color:#c9bfa8">☆☆☆☆☆</div>
+        </div>
+        <div style="margin-bottom:14px">
+          <div style="font-size:13px;font-weight:700;margin-bottom:7px">특히 좋았던 활동 <span class="hint" style="font-weight:400;color:var(--ink-l)">(복수 선택)</span></div>
+          <div class="chips" id="fb-likes">
+            ${['색칠하기','다른 그림 찾기','기억력 놀이','낱말상자','찬송가 따라 쓰기','노래·가사','달력 만들기','요즘말','회상 질문'].map(x=>`<button class="chip" data-v="${x}">${x}</button>`).join('')}
+          </div>
+        </div>
+        <div style="margin-bottom:16px">
+          <div style="font-size:13px;font-weight:700;margin-bottom:7px">하고 싶은 말씀</div>
+          <textarea id="fb-text" placeholder="어르신 반응, 바라는 점, 다음 책에 넣고 싶은 이야기 등 자유롭게 적어 주세요"></textarea>
+        </div>
+        <div style="display:flex;align-items:center;gap:14px;flex-wrap:wrap">
+          <button class="cta sm" id="fb-send">피드백 보내기 ✉</button>
+          <span id="fb-note" style="font-size:12px;color:var(--ink-l)">버튼을 누르면 메일 앱이 열리고, 작성 내용이 자동으로 담깁니다.</span>
+        </div>
+      </div>
+      ${why('가족과 "함께" 하는 구조',
+        `혼자 푸는 문제집은 곧 서랍에 들어갑니다. 실제 가정에서 개인 인지활동을 시켜 보면 <b>가장 큰 실패 원인은 효과가 아니라 "꾸준히 안 하게 되는 것"</b>입니다. 그래서 기억윤슬은 어르신 혼자가 아닌 <b>가족이 묻고, 어르신이 답하고, 다음 달 책에 그 답이 실리는 순환</b>으로 설계했습니다. 매달 도착하는 선물이라는 형식, 가족의 편지와 목소리는 '해야 하는 훈련'을 '기다려지는 시간'으로 바꿉니다. 인지 자극은 꾸준할 때만 쌓입니다.`,
+        `지속·순응의 과학 — 대규모 생활습관 연구(핀란드 FINGER, 2015 Lancet / 미국 POINTER, 2025 JAMA)는 구조화되고 정기적인 접점이 있는 방식이 자기주도 방식보다 효과적임을 보였습니다. 사회적 고립은 치매의 수정 가능 위험요인 중 하나로 꼽히며(Lancet 치매위원회 2024), 가족 참여형 설계는 그 자체가 개입입니다.`)}
+    </div>
+  `}
+  ];
+}
+/* =========================================================
+   책 내비게이션 + 인터랙션
+   ========================================================= */
+let PG = [];
+
+function renderBook(){
+  PG = pages(); page = 0;
+  $('#book-title').textContent = `${S.first} 님의 기억 여행`;
+  $('#ship-to').textContent = `${S.name} 어르신`;
+  $('#ship-cur').textContent = `3권 · ${CITY[S.city].sea}의 기억`;
+  $('#ship-next').textContent = `4권 · ${CITY[S.city].market}의 하루`;
+  $('#dots').innerHTML = PG.map((_,i)=>`<span class="dot${i===0?' on':''}"></span>`).join('');
+  showPage(0);
+}
+
+function showPage(n){
+  page = Math.max(0, Math.min(PG.length-1, n));
+  const p = PG[page];
+  const ABC = {'집중력':'#d95f4b','기억력':'#d95f4b','언어력':'#4b7dd9','시공간력':'#4b9dd9','지남력':'#7a5fd9','판단력':'#3f9271','정서':'#c9793f','세대연결':'#c9793f'};
+  const ab = (p.tag && p.tag[3]) ? p.tag[3].map(a=>`<span class="abil" style="background:${ABC[a]||'#999'}">${a}</span>`).join('') : '';
+  const study = p.tag ? `<div class="studybar"><span>📅 학습날짜 <span class="ln"></span>월 <span class="ln"></span>일</span><span>⏱ 학습시간 <span class="ln"></span>분</span></div>` : '';
+  const day = p.tag ? `<div class="daynum">${p.tag[0]}<span>일 차</span></div>` : '';
+  const tag = p.tag ? `${day}${study}<div style="margin-left:86px"><span class="ptag"><span class="num">${p.tag[0]}</span>${p.tag[1]}</span>${ab}<div class="psub">${p.tag[2]}</div></div>` : '';
+  $('#pages').innerHTML = `<div class="page">${tag}${p.html}
+    <div class="pfoot"><span>기억윤슬 · ${S.name} 님 전용판</span><span>${page+1} / ${PG.length}</span></div></div>`;
+  $('#page-label').textContent = p.label;
+  $$('#dots .dot').forEach((d,i)=>d.classList.toggle('on', i===page));
+  $('#prev').disabled = page===0;
+  $('#next').disabled = page===PG.length-1;
+  initPage();
+}
+$('#prev').addEventListener('click',()=>showPage(page-1));
+$('#next').addEventListener('click',()=>showPage(page+1));
+
+/* ---------- 페이지별 위젯 초기화 ---------- */
+function initPage(){
+  /* 다른그림찾기 */
+  const sdB = $('#sd-b');
+  if(sdB){
+    let found = 0;
+    $$('.hot', sdB).forEach(h=>h.addEventListener('click',()=>{
+      if(h.classList.contains('found')) return;
+      h.classList.add('found'); found++;
+      $('#sd-score').textContent = `${found} / 3`;
+      if(found===3){
+        $('#sd-score').classList.add('done');
+        $('#sd-msg').textContent = '세 군데 모두 찾으셨어요! 참 잘하셨습니다 🎉';
+      } else {
+        $('#sd-msg').textContent = '찾으셨네요! 나머지도 천천히 살펴보세요.';
+      }
+    }));
+  }
+
+  /* 컬러링 */
+  const col = $('#coloring');
+  if(col){
+    $$('.swatch').forEach(s=>s.addEventListener('click',()=>{
+      $$('.swatch').forEach(x=>x.classList.remove('on'));
+      s.classList.add('on'); curColor = s.dataset.c;
+    }));
+    col.addEventListener('click',e=>{
+      const f = e.target.closest('.fillable'); if(!f) return;
+      f.setAttribute('fill', curColor);
+    });
+    $('#c-reset').addEventListener('click',()=>$$('.fillable',col).forEach(f=>f.setAttribute('fill','#ffffff')));
+    $('#c-auto').addEventListener('click',()=>{
+      const auto = {sky:'#dceef5',sun:'#f7e8a4',cloud:'#ffffff',sea:'#a7c8d6',boat:'#c9a9
