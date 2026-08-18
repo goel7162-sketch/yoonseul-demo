@@ -1,0 +1,347 @@
+7f',sail:'#e8b4b8',
+        tower:'#e05b3a',lamp:'#f7e8a4',roof:'#e05b3a',tip:'#f7e8a4',sand:'#f2d0a4',
+        dbody:'#ffffff',dhead:'#ffffff',dear:'#e0e0d8',shell:'#e8b4b8',shell2:'#f2d0a4'};
+      $$('.fillable',col).forEach(f=>{ const k=f.dataset.f; if(auto[k]) f.setAttribute('fill',auto[k]); });
+    });
+  }
+
+  /* 기억력 훈련 */
+  const mem = $('#mem-stage');
+  if(mem) initMemory(mem);
+
+  /* 회상 opt 토글 (특수 버튼 제외) */
+  $$('.opt:not(.oddo):not(.seqb)').forEach(o=>o.addEventListener('click',()=>o.classList.toggle('on')));
+
+  /* 사고력: 다른 하나 고르기 */
+  $$('.odd-set').forEach(set=>{
+    const fb = $('.odd-fb', set);
+    $$('.oddo', set).forEach(b=>b.addEventListener('click',()=>{
+      if(set.dataset.done) return;
+      const txt = b.dataset.v || b.textContent.replace(/^[^ ]+ /,'');
+      if(txt===set.dataset.a){
+        b.classList.add('on'); set.dataset.done='1';
+        fb.textContent='정답이에요! 참 잘하셨습니다 🎉'; fb.style.color='var(--green)';
+      } else {
+        b.style.borderColor='#e05b3a'; fb.textContent='음, 다시 한번 살펴보세요.';
+        setTimeout(()=>b.style.borderColor='',700);
+      }
+    }));
+  });
+
+  /* 사고력: 순서 배열 */
+  const seq = $('#seq');
+  if(seq){
+    let expect = 0;
+    $$('.seqb',seq).forEach(b=>b.addEventListener('click',()=>{
+      if(b.classList.contains('on')) return;
+      if(+b.dataset.i===expect){
+        b.classList.add('on');
+        b.textContent = (expect+1)+'번 · '+b.textContent;
+        expect++;
+        $('#seq-fb').textContent = expect===4 ? '순서가 완벽해요! 오늘 저녁은 칼국수 어떠세요? 🍜' : '맞아요, 그 다음은요?';
+        if(expect===4) $('#seq-fb').style.color='var(--green)';
+      } else {
+        b.style.borderColor='#e05b3a';
+        $('#seq-fb').textContent='그 전에 해야 할 일이 있어요. 처음부터 차근차근!';
+        setTimeout(()=>b.style.borderColor='',700);
+      }
+    }));
+  }
+
+  /* 음악: 가사 채우기 */
+  const lyr = $('#lyric');
+  if(lyr){
+    const lq = [
+      {t:'아리랑 아리랑 ___', a:'아라리요'},
+      {t:'아리랑 고개로 ___', a:'넘어간다'},
+      {t:'나를 버리고 가시는 님은 십리도 못 가서 ___', a:'발병 난다'}
+    ];
+    lyr.innerHTML = '<b style="font-size:13px;color:var(--ink-l);letter-spacing:.04em">아리랑</b><br>' +
+      lq.map((q,i)=>q.t.replace('___',`<span class="blank empty" data-q="${i}">?</span>`)).join('<br>');
+    const words = lq.map(q=>q.a).concat(['좋을시고']).sort(()=>Math.sin(page*3+2)-.4);
+    $('#lbank').innerHTML = words.map(w=>`<button class="word" data-w="${w}">${w}</button>`).join('');
+    let sel=null;
+    $$('#lbank .word').forEach(w=>w.addEventListener('click',()=>{
+      if(w.classList.contains('used')) return;
+      $$('#lbank .word').forEach(x=>x.style.borderColor='');
+      sel=w; w.style.borderColor='var(--green)';
+    }));
+    $$('.blank',lyr).forEach(b=>b.addEventListener('click',()=>{
+      if(!sel) return;
+      const q = lq[+b.dataset.q];
+      b.textContent = sel.dataset.w; b.classList.remove('empty');
+      if(sel.dataset.w===q.a){ b.style.color='var(--green)'; sel.classList.add('used'); }
+      else { b.style.color='#e05b3a'; setTimeout(()=>{b.textContent='?';b.classList.add('empty');b.style.color='';},900); }
+      sel.style.borderColor=''; sel=null;
+    }));
+  }
+
+  /* 초성퀴즈 */
+  $$('.cho').forEach(box=>{
+    const inp = $('input',box);
+    inp.addEventListener('input',()=>{
+      box.classList.toggle('right', inp.value.trim()===box.dataset.ans);
+    });
+  });
+
+  /* 속담 채우기 */
+  const prov = $('#prov');
+  if(prov){
+    const qs = PROVERBS.slice(0,3);
+    prov.innerHTML = '<b style="font-size:13px;color:var(--ink-l);letter-spacing:.04em">속담을 완성해 보세요</b><br>' +
+      qs.map((q,i)=>q.t.replace('___',`<span class="blank empty" data-q="${i}">?</span>`)).join('<br>');
+    const bankWords = qs.map(q=>q.a).concat(['바늘','호랑이']).sort(()=>Math.sin(page*7+1)-.4);
+    $('#bank').innerHTML = bankWords.map(w=>`<button class="word" data-w="${w}">${w}</button>`).join('');
+    let sel = null;
+    $$('#bank .word').forEach(w=>w.addEventListener('click',()=>{
+      if(w.classList.contains('used')) return;
+      $$('#bank .word').forEach(x=>x.style.borderColor='');
+      sel = w; w.style.borderColor = 'var(--green)';
+    }));
+    $$('.blank',prov).forEach(b=>b.addEventListener('click',()=>{
+      if(!sel) return;
+      const q = qs[+b.dataset.q];
+      b.textContent = sel.dataset.w;
+      b.classList.remove('empty');
+      if(sel.dataset.w===q.a){ b.style.color='var(--green)'; sel.classList.add('used'); }
+      else { b.style.color='#e05b3a'; setTimeout(()=>{b.textContent='?';b.classList.add('empty');b.style.color='';},900); }
+      sel.style.borderColor=''; sel=null;
+    }));
+  }
+
+  /* 낱말상자 */
+  if($('#ws-grid')) initWordSearch();
+
+  /* 짝꿍도형 */
+  if($('#pair')) initPair();
+
+  /* 달력 */
+  if($('#cal-grid')) initCalendar();
+
+  /* 찬송가 따라 쓰기 */
+  $$('#copy-area input').forEach(inp=>inp.addEventListener('change',()=>{
+    if(inp.value.trim().length>2){ inp.style.borderBottomColor='var(--green)'; }
+  }));
+
+  /* 피드백 */
+  if($('#fb-stars')) initFeedback();
+
+  /* 주의집중 */
+  const att = $('#att-grid');
+  if(att){
+    const targets = ['강아지','나비'];
+    const items = ['주전자','강아지','부채','시계','나비','우산','안경','강아지','찻잔','나비','신발','주사위'];
+    att.innerHTML = items.map((n,i)=>`<div class="icard" data-t="${targets.includes(n)?1:0}" data-i="${i}">${ic(n)}<div class="nm">${n==='강아지'?S.pet:n}</div></div>`).join('');
+    let got = 0; const total = items.filter(n=>targets.includes(n)).length;
+    $('#att-score').textContent = `0 / ${total}`;
+    $$('.icard',att).forEach(c=>c.addEventListener('click',()=>{
+      if(c.classList.contains('pick')||c.classList.contains('wrong')) return;
+      if(c.dataset.t==='1'){
+        c.classList.add('pick'); got++;
+        $('#att-score').textContent = `${got} / ${total}`;
+        if(got===total){ $('#att-score').classList.add('done'); $('#att-msg').textContent='전부 찾으셨어요! 대단하십니다 🎉'; }
+        else $('#att-msg').textContent='맞아요! 계속 찾아보세요.';
+      } else {
+        c.classList.add('wrong');
+        $('#att-msg').textContent='괜찮아요, 다른 그림을 살펴보세요.';
+        setTimeout(()=>c.classList.remove('wrong'),800);
+      }
+    }));
+  }
+
+  /* 가족 메시지 + QR */
+  const fm = $('#fam-msg');
+  if(fm){
+    fm.textContent = '“' + (S.msg || '엄마, 이번 달도 건강하게 함께해 주셔서 고마워요.') + '”';
+    drawQR($('#qr-svg'));
+  }
+}
+
+/* ---------- 기억력 게임 ---------- */
+function initMemory(root){
+  const pool = ['주전자','라디오','부채','꽃','시계','우산','안경','신발','찻잔','나비'];
+  const shown = pool.slice(0,6);
+  const secs = [15,10,8][3-S.level] || 10;
+  root.innerHTML = `
+    <div class="mem-strip">${shown.map(n=>`<div style="width:74px;text-align:center">${ic(n)}<div style="font-size:11.5px;color:var(--ink-l)">${n}</div></div>`).join('')}</div>
+    <div class="timer" id="mem-timer">${secs}</div>
+    <div style="text-align:center"><button class="cta sm" id="mem-start">다 봤어요, 문제 주세요</button></div>
+    <div id="mem-quiz" style="display:none;margin-top:18px">
+      <p style="font-size:14.5px;color:var(--ink-l);text-align:center;margin:0 0 14px">방금 본 물건 <b>6개</b>를 모두 골라 주세요. (없던 물건 3개가 섞여 있어요)</p>
+      <div class="icon-grid" id="mem-grid"></div>
+      <div class="scoreline" style="justify-content:center"><span class="pill" id="mem-score">0 / 6</span><span id="mem-msg"></span></div>
+    </div>`;
+  let t = secs;
+  const tm = setInterval(()=>{
+    t--; const el=$('#mem-timer'); if(!el){clearInterval(tm);return}
+    el.textContent = t;
+    if(t<=0){ clearInterval(tm); startQuiz(); }
+  },1000);
+  $('#mem-start').addEventListener('click',()=>{ clearInterval(tm); startQuiz(); });
+
+  function startQuiz(){
+    const strip=$('.mem-strip',root); if(strip) strip.style.display='none';
+    const tmr=$('#mem-timer'); if(tmr) tmr.style.display='none';
+    const st=$('#mem-start'); if(st) st.parentElement.style.display='none';
+    $('#mem-quiz').style.display='block';
+    const decoys = pool.slice(6,9);
+    const all = shown.concat(decoys).sort(()=>Math.sin(all2++)-.4);
+    $('#mem-grid').innerHTML = all.map(n=>`<div class="icard" data-t="${shown.includes(n)?1:0}">${ic(n)}<div class="nm">${n}</div></div>`).join('');
+    let got=0;
+    $$('#mem-grid .icard').forEach(c=>c.addEventListener('click',()=>{
+      if(c.classList.contains('pick')||c.classList.contains('wrong')) return;
+      if(c.dataset.t==='1'){
+        c.classList.add('pick'); got++;
+        $('#mem-score').textContent=`${got} / 6`;
+        if(got===6){ $('#mem-score').classList.add('done'); $('#mem-msg').textContent='여섯 개 전부 기억하셨어요! 🎉'; }
+      } else {
+        c.classList.add('wrong'); $('#mem-msg').textContent='그 물건은 없었어요. 괜찮습니다!';
+        setTimeout(()=>c.classList.remove('wrong'),800);
+      }
+    }));
+  }
+}
+let all2 = 1;
+
+/* ---------- 낱말상자 ---------- */
+function initWordSearch(){
+  const c = CITY[S.city];
+  const cand = [S.pet, S.grand, c.sea.replace(/[^가-힣]/g,''), ...S.likes];
+  const words = [...new Set(cand.filter(w=>w && w.length>=2 && w.length<=4))].slice(0,5);
+  const N = 9;
+  const grid = Array.from({length:N},()=>Array(N).fill(''));
+  const wordCells = {};
+  words.forEach((w,wi)=>{
+    let placed=false;
+    for(let t=0;t<80 && !placed;t++){
+      const horiz = (wi+t)%2===0;
+      const r = Math.floor(Math.random()*(horiz?N:N-w.length));
+      const col = Math.floor(Math.random()*(horiz?N-w.length:N));
+      let ok=true;
+      for(let k=0;k<w.length;k++){
+        const rr=horiz?r:r+k, cc=horiz?col+k:col;
+        if(grid[rr][cc] && grid[rr][cc]!==w[k]){ ok=false; break; }
+      }
+      if(!ok) continue;
+      wordCells[w]=[];
+      for(let k=0;k<w.length;k++){
+        const rr=horiz?r:r+k, cc=horiz?col+k:col;
+        grid[rr][cc]=w[k]; wordCells[w].push(rr+','+cc);
+      }
+      placed=true;
+    }
+  });
+  const pool='가나다라마바사아자차카타파하고노도로모보소오조초코토포호구누두무해달별꽃강산들길손마음정';
+  for(let r=0;r<N;r++)for(let cc=0;cc<N;cc++) if(!grid[r][cc]) grid[r][cc]=pool[Math.floor(Math.random()*pool.length)];
+  const real = words.filter(w=>wordCells[w]);
+  $('#ws-words').innerHTML = real.map(w=>`<span class="ws-word" data-w="${w}">${w}</span>`).join('');
+  $('#ws-grid').innerHTML = grid.map((row,r)=>row.map((ch,cc)=>`<button class="ws-cell" data-p="${r},${cc}">${ch}</button>`).join('')).join('');
+  $('#ws-score').textContent = `0 / ${real.length}`;
+  $('#ws-msg').textContent = `${real.length}개의 낱말이 숨어 있어요.`;
+  const found = new Set();
+  $$('#ws-grid .ws-cell').forEach(cell=>cell.addEventListener('click',()=>{
+    if(cell.classList.contains('fnd')) return;
+    cell.classList.toggle('sel');
+    const selSet = new Set($$('#ws-grid .ws-cell.sel').map(x=>x.dataset.p));
+    real.forEach(w=>{
+      if(found.has(w)) return;
+      if(wordCells[w].every(pos=>selSet.has(pos))){
+        found.add(w);
+        wordCells[w].forEach(pos=>{
+          const el = $(`#ws-grid .ws-cell[data-p="${pos}"]`);
+          el.classList.remove('sel'); el.classList.add('fnd');
+        });
+        $(`.ws-word[data-w="${w}"]`).classList.add('hit');
+        $('#ws-score').textContent = `${found.size} / ${real.length}`;
+        $('#ws-msg').textContent = found.size===real.length ? '전부 찾으셨어요! 참 잘하셨습니다 🎉' : `「${w}」를 찾으셨네요!`;
+        if(found.size===real.length) $('#ws-score').classList.add('done');
+      }
+    });
+  }));
+}
+
+/* ---------- 짝꿍도형 ---------- */
+function initPair(){
+  const L = [
+    [[1,1,0],[0,1,0],[0,0,1]],
+    [[1,0,1],[0,1,0],[1,0,1]],
+    [[0,1,1],[1,0,0],[1,1,0]]
+  ];
+  const inv = m=>m.map(r=>r.map(v=>1-v));
+  const Rorder = [1,2,0];
+  const cellSvg = (m,color)=>`<svg viewBox="0 0 66 66" width="76" height="76">${m.map((row,r)=>row.map((v,cc)=>`<rect x="${cc*22}" y="${r*22}" width="22" height="22" fill="${v?color:'#fff'}" stroke="#b9b19f" stroke-width="1.4"/>`).join('')).join('')}</svg>`;
+  $('#pair-l').innerHTML = L.map((m,i)=>`<div class="pair-card" data-side="l" data-i="${i}">${cellSvg(m,'#9fc9a8')}</div>`).join('');
+  $('#pair-r').innerHTML = Rorder.map(i=>`<div class="pair-card" data-side="r" data-i="${i}">${cellSvg(inv(L[i]),'#e8a8a8')}</div>`).join('');
+  let selL = null, done = 0;
+  const wrap = $('#pair'), svg = $('#pair-svg');
+  const center = el=>{
+    const a=el.getBoundingClientRect(), b=wrap.getBoundingClientRect();
+    return {x:a.left-b.left+a.width/2, y:a.top-b.top+a.height/2};
+  };
+  $$('.pair-card',wrap).forEach(card=>card.addEventListener('click',()=>{
+    if(card.classList.contains('done')) return;
+    if(card.dataset.side==='l'){
+      $$('.pair-card[data-side="l"]',wrap).forEach(x=>x.classList.remove('sel'));
+      card.classList.add('sel'); selL = card;
+    } else {
+      if(!selL){ $('#pair-msg').textContent='왼쪽 도형을 먼저 골라 주세요.'; return; }
+      if(card.dataset.i === selL.dataset.i){
+        const a = center(selL), b = center(card);
+        svg.innerHTML += `<line x1="${a.x}" y1="${a.y}" x2="${b.x}" y2="${b.y}" stroke="#c9793f" stroke-width="3" stroke-linecap="round"/>`;
+        selL.classList.remove('sel'); selL.classList.add('done'); card.classList.add('done');
+        selL=null; done++;
+        $('#pair-score').textContent = `${done} / 3`;
+        $('#pair-msg').textContent = done===3 ? '세 쌍 모두 이으셨어요! 참 잘하셨습니다 🎉' : '짝꿍을 찾으셨네요!';
+        if(done===3) $('#pair-score').classList.add('done');
+      } else {
+        card.style.borderColor='#e05b3a';
+        $('#pair-msg').textContent='합쳐 보면 겹치거나 빈칸이 생겨요. 다시 살펴보세요.';
+        setTimeout(()=>card.style.borderColor='',700);
+      }
+    }
+  }));
+}
+
+/* ---------- 달력 ---------- */
+function initCalendar(){
+  const now = new Date();
+  const y = now.getFullYear(), m = now.getMonth(), today = now.getDate();
+  const last = new Date(y, m+1, 0).getDate();
+  const firstDow = (new Date(y, m, 1).getDay()+6)%7;
+  $('#cal-title').textContent = `${y}년 ${m+1}월`;
+  let cells='';
+  for(let i=0;i<firstDow;i++) cells += `<div class="cal-cell blankd"></div>`;
+  for(let d=1;d<=last;d++){
+    const mk = d===15 ? '<span class="mk">📦</span>' : (d===Math.min(last,today+4) ? '<span class="mk">💐</span>' : '');
+    cells += `<button class="cal-cell" data-d="${d}">${d}${mk}</button>`;
+  }
+  $('#cal-grid').innerHTML = cells;
+  $$('#cal-grid .cal-cell:not(.blankd)').forEach(b=>b.addEventListener('click',()=>{
+    if(+b.dataset.d === today){
+      b.classList.add('today-hit');
+      $('#cal-msg').textContent = `맞아요! 오늘은 ${m+1}월 ${today}일이에요. 참 잘하셨습니다 🎉`;
+      $('#cal-msg').style.color='var(--green)';
+    } else {
+      $('#cal-msg').textContent = '음, 오늘이 아니에요. 달력을 한 번 더 살펴보세요.';
+    }
+  }));
+}
+
+/* ---------- 피드백 ---------- */
+function initFeedback(){
+  let stars = 0;
+  const el = $('#fb-stars');
+  el.addEventListener('click',e=>{
+    const rect = el.getBoundingClientRect();
+    stars = Math.max(1, Math.min(5, Math.ceil((e.clientX-rect.left)/(rect.width/5))));
+    el.textContent = '★'.repeat(stars)+'☆'.repeat(5-stars);
+    el.style.color = '#e5a33a';
+  });
+  $$('#fb-likes .chip').forEach(cch=>cch.addEventListener('click',()=>cch.classList.toggle('on')));
+  $('#fb-send').addEventListener('click',()=>{
+    const liked = $$('#fb-likes .chip.on').map(x=>x.dataset.v).join(', ') || '(선택 안 함)';
+    const text = $('#fb-text').value.trim() || '(내용 없음)';
+    const TO = 'rs15@naver.com';
+    const subjectRaw = `[기억윤슬 피드백] ${S.name} 님의 책 · 별점 ${stars||'-'}점`;
+    const bodyRaw =
+`■ 별점: ${stars ? '★'.repeat(stars) : '(미선택)'}
